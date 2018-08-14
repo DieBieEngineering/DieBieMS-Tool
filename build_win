@@ -23,7 +23,7 @@ make clean
 make -j8
 rm -rf build/win/obj
 cd build/win
-zip vesc_tool_original_windows.zip vesc_tool*.exe
+zip DieBieMSToolWindows.zip DieBieMSTool*.exe
 ls | grep -v '\.zip$' | xargs rm
 cd ../..
 
@@ -33,7 +33,7 @@ make clean
 make -j8
 rm -rf build/win/obj
 cd build/win
-zip vesc_tool_platinum_windows.zip vesc_tool*.exe
+zip DieBieMSToolWindows.zip DieBieMSTool*.exe
 ls | grep -v '\.zip$' | xargs rm
 cd ../..
 
@@ -43,7 +43,7 @@ make clean
 make -j8
 rm -rf build/win/obj
 cd build/win
-zip vesc_tool_gold_windows.zip vesc_tool*.exe
+zip DieBieMSToolWindows.zip DieBieMSTool*.exe
 ls | grep -v '\.zip$' | xargs rm
 cd ../..
 
@@ -53,7 +53,7 @@ make clean
 make -j8
 rm -rf build/win/obj
 cd build/win
-zip vesc_tool_silver_windows.zip vesc_tool*.exe
+zip DieBieMSToolWindows.zip DieBieMSTool*.exe
 ls | grep -v '\.zip$' | xargs rm
 cd ../..
 
@@ -63,7 +63,7 @@ make clean
 make -j8
 rm -rf build/win/obj
 cd build/win
-zip vesc_tool_bronze_windows.zip vesc_tool*.exe
+zip DieBieMSToolWindows.zip DieBieMSTool*.exe
 ls | grep -v '\.zip$' | xargs rm
 cd ../..
 
@@ -73,7 +73,7 @@ make clean
 make -j8
 rm -rf build/win/obj
 cd build/win
-zip vesc_tool_free_windows.zip vesc_tool*.exe
+zip DieBieMSToolWindows.zip DieBieMSTool*.exe
 ls | grep -v '\.zip$' | xargs rm
 cd ../..
 
