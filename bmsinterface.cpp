@@ -60,10 +60,8 @@ BMSInterface::BMSInterface(QObject *parent) : QObject(parent)
     mLastSerialPort = "";
     mLastSerialBaud = 0;
 
-    connect(mSerialPort, SIGNAL(readyRead()),
-            this, SLOT(serialDataAvailable()));
-    connect(mSerialPort, SIGNAL(error(QSerialPort::SerialPortError)),
-            this, SLOT(serialPortError(QSerialPort::SerialPortError)));
+    connect(mSerialPort, SIGNAL(readyRead()),this, SLOT(serialDataAvailable()));
+    connect(mSerialPort, SIGNAL(error(QSerialPort::SerialPortError)),this, SLOT(serialPortError(QSerialPort::SerialPortError)));
 #endif
 
     // TCP
@@ -74,10 +72,8 @@ BMSInterface::BMSInterface(QObject *parent) : QObject(parent)
 
     connect(mTcpSocket, SIGNAL(readyRead()), this, SLOT(tcpInputDataAvailable()));
     connect(mTcpSocket, SIGNAL(connected()), this, SLOT(tcpInputConnected()));
-    connect(mTcpSocket, SIGNAL(disconnected()),
-            this, SLOT(tcpInputDisconnected()));
-    connect(mTcpSocket, SIGNAL(error(QAbstractSocket::SocketError)),
-            this, SLOT(tcpInputError(QAbstractSocket::SocketError)));
+    connect(mTcpSocket, SIGNAL(disconnected()),this, SLOT(tcpInputDisconnected()));
+    connect(mTcpSocket, SIGNAL(error(QAbstractSocket::SocketError)),this, SLOT(tcpInputError(QAbstractSocket::SocketError)));
 
     // BLE
     mBleUart = new BleUart(this);
@@ -88,14 +84,10 @@ BMSInterface::BMSInterface(QObject *parent) : QObject(parent)
 
     // Other signals/slots
     connect(mTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
-    connect(mPacket, SIGNAL(dataToSend(QByteArray&)),
-            this, SLOT(packetDataToSend(QByteArray&)));
-    connect(mPacket, SIGNAL(packetReceived(QByteArray&)),
-            this, SLOT(packetReceived(QByteArray&)));
-    connect(mCommands, SIGNAL(dataToSend(QByteArray&)),
-            this, SLOT(cmdDataToSend(QByteArray&)));
-    connect(mCommands, SIGNAL(fwVersionReceived(int,int,QString,QByteArray)),
-            this, SLOT(fwVersionReceived(int,int,QString,QByteArray)));
+    connect(mPacket, SIGNAL(dataToSend(QByteArray&)),this, SLOT(packetDataToSend(QByteArray&)));
+    connect(mPacket, SIGNAL(packetReceived(QByteArray&)),this, SLOT(packetReceived(QByteArray&)));
+    connect(mCommands, SIGNAL(dataToSend(QByteArray&)),this, SLOT(cmdDataToSend(QByteArray&)));
+    connect(mCommands, SIGNAL(fwVersionReceived(int,int,QString,QByteArray)),this, SLOT(fwVersionReceived(int,int,QString,QByteArray)));
     connect(mCommands, SIGNAL(ackReceived(QString)), this, SLOT(ackReceived(QString)));
     connect(mbmsConfig, SIGNAL(updated()), this, SLOT(bmsconfUpdated()));
     connect(mbmsConfig, SIGNAL(stored()), this, SLOT(bmsconfStored()));

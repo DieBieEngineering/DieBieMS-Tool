@@ -43,11 +43,9 @@ Commands::Commands(QObject *parent) : QObject(parent)
 
     mTimeoutCount = 50;
     mTimeoutFwVer = 0;
-    mTimeoutMcconf = 0;
+    mTimeoutBMSconf = 0;
     mTimeoutValues = 0;
-    mTimeoutDecPpm = 0;
-    mTimeoutDecAdc = 0;
-    mTimeoutDecChuk = 0;
+    mTimeoutCells = 0;
 
     connect(mTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
 }
@@ -150,29 +148,21 @@ void Commands::processPacket(QByteArray data)
         emit valuesReceived(values);
     } break;
 
-    case COMM_PRINT:
-        emit printReceived(QString::fromLatin1(vb));
+    case COMM_GET_BMS_CELLS:
+        mTimeoutCells = 0;
         break;
 
-    case COMM_SAMPLE_PRINT:
-        emit samplesReceived(vb);
+    case COMM_PRINT:
+        emit printReceived(QString::fromLatin1(vb));
         break;
 
     case COMM_ROTOR_POSITION:
         emit rotorPosReceived(vb.vbPopFrontDouble32(1e5));
         break;
 
-    case COMM_EXPERIMENT_SAMPLE: {
-        QVector<double> samples;
-        while (!vb.isEmpty()) {
-            samples.append(vb.vbPopFrontDouble32(1e4));
-        }
-        emit experimentSamplesReceived(samples);
-    } break;
-
     case COMM_GET_MCCONF:
     case COMM_GET_MCCONF_DEFAULT:
-        mTimeoutMcconf = 0;
+        mTimeoutBMSconf = 0;
         if (mbmsConfig) {
             mbmsConfig->deSerialize(vb);
             mbmsConfig->updateDone();
@@ -184,82 +174,8 @@ void Commands::processPacket(QByteArray data)
         }
         break;
 
-    case COMM_GET_APPCONF:
-    case COMM_GET_APPCONF_DEFAULT:
-        break;
-
-    case COMM_DETECT_MOTOR_PARAM: {
-        bldc_detect param;
-        param.cycle_int_limit = vb.vbPopFrontDouble32(1e3);
-        param.bemf_coupling_k = vb.vbPopFrontDouble32(1e3);
-        for (int i = 0;i < 8;i++) {
-            param.hall_table.append((int)vb.vbPopFrontUint8());
-        }
-        param.hall_res = (int)vb.vbPopFrontUint8();
-        emit bldcDetectReceived(param);
-    } break;
-
-    case COMM_DETECT_MOTOR_R_L: {
-        double r = vb.vbPopFrontDouble32(1e6);
-        double l = vb.vbPopFrontDouble32(1e3);
-        emit motorRLReceived(r, l);
-    } break;
-
-    case COMM_DETECT_MOTOR_FLUX_LINKAGE: {
-        emit motorLinkageReceived(vb.vbPopFrontDouble32(1e7));
-    } break;
-
-    case COMM_DETECT_ENCODER: {
-        double offset = vb.vbPopFrontDouble32(1e6);
-        double ratio = vb.vbPopFrontDouble32(1e6);
-        bool inverted = vb.vbPopFrontInt8();
-        emit encoderParamReceived(offset, ratio, inverted);
-    } break;
-
-    case COMM_DETECT_HALL_FOC: {
-        QVector<int> table;
-        for (int i = 0;i < 8;i++) {
-            table.append(vb.vbPopFrontUint8());
-        }
-        int res = vb.vbPopFrontUint8();
-        emit focHallTableReceived(table, res);
-    } break;
-
-    case COMM_GET_DECODED_PPM: {
-        mTimeoutDecPpm = 0;
-        double dec_ppm = vb.vbPopFrontDouble32(1e6);
-        double ppm_last_len = vb.vbPopFrontDouble32(1e6);
-        emit decodedPpmReceived(dec_ppm, ppm_last_len);
-    } break;
-
-    case COMM_GET_DECODED_ADC: {
-        mTimeoutDecAdc = 0;
-        double dec_adc = vb.vbPopFrontDouble32(1e6);
-        double dec_adc_voltage = vb.vbPopFrontDouble32(1e6);
-        double dec_adc2 = vb.vbPopFrontDouble32(1e6);
-        double dec_adc_voltage2 = vb.vbPopFrontDouble32(1e6);
-        emit decodedAdcReceived(dec_adc, dec_adc_voltage, dec_adc2, dec_adc_voltage2);
-    } break;
-
-    case COMM_GET_DECODED_CHUK:
-        mTimeoutDecChuk = 0;
-        emit decodedChukReceived(vb.vbPopFrontDouble32(1000000.0));
-        break;
-
     case COMM_SET_MCCONF:
-        emit ackReceived("MCCONF Write OK");
-        break;
-
-    case COMM_SET_APPCONF:
-        emit ackReceived("APPCONF Write OK");
-        break;
-
-    case COMM_CUSTOM_APP_DATA:
-        emit customAppDataReceived(vb);
-        break;
-
-    case COMM_NRF_START_PAIRING:
-        emit nrfPairingRes((NRF_PAIR_RES)vb.vbPopFrontInt8());
+        emit ackReceived("BMS Write OK");
         break;
 
     case COMM_STORE_BMS_CONF:
@@ -299,59 +215,24 @@ void Commands::getValues()
     emitData(vb);
 }
 
+void Commands::getCells()
+{
+    if (mTimeoutCells > 0) {
+        return;
+    }
+
+    mTimeoutCells = mTimeoutCount;
+
+    VByteArray vb;
+    vb.vbAppendInt8(COMM_GET_BMS_CELLS);
+    emitData(vb);
+}
+
 void Commands::sendTerminalCmd(QString cmd)
 {
     VByteArray vb;
     vb.vbAppendInt8(COMM_TERMINAL_CMD);
     vb.append(cmd.toLatin1());
-    emitData(vb);
-}
-
-void Commands::setDutyCycle(double dutyCycle)
-{
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_SET_DUTY);
-    vb.vbAppendDouble32(dutyCycle, 1e5);
-    emitData(vb);
-}
-
-void Commands::setCurrent(double current)
-{
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_SET_CURRENT);
-    vb.vbAppendDouble32(current, 1e3);
-    emitData(vb);
-}
-
-void Commands::setCurrentBrake(double current)
-{
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_SET_CURRENT_BRAKE);
-    vb.vbAppendDouble32(current, 1e3);
-    emitData(vb);
-}
-
-void Commands::setRpm(int rpm)
-{
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_SET_RPM);
-    vb.vbAppendInt32(rpm);
-    emitData(vb);
-}
-
-void Commands::setPos(double pos)
-{
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_SET_POS);
-    vb.vbAppendDouble32(pos, 1e6);
-    emitData(vb);
-}
-
-void Commands::setHandbrake(double current)
-{
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_SET_HANDBRAKE);
-    vb.vbAppendDouble32(current, 1e3);
     emitData(vb);
 }
 
@@ -373,13 +254,13 @@ void Commands::samplePrint(debug_sampling_mode mode, int sample_len, int dec)
     emitData(vb);
 }
 
-void Commands::getMcconf()
+void Commands::getBMSconf()
 {
-    if (mTimeoutMcconf > 0) {
+    if (mTimeoutBMSconf > 0) {
         return;
     }
 
-    mTimeoutMcconf = mTimeoutCount;
+    mTimeoutBMSconf = mTimeoutCount;
 
 
     mCheckNextbmsConfig = false;
@@ -388,13 +269,13 @@ void Commands::getMcconf()
     emitData(vb);
 }
 
-void Commands::getMcconfDefault()
+void Commands::getBMSconfDefault()
 {
-    if (mTimeoutMcconf > 0) {
+    if (mTimeoutBMSconf > 0) {
         return;
     }
 
-    mTimeoutMcconf = mTimeoutCount;
+    mTimeoutBMSconf = mTimeoutCount;
 
     mCheckNextbmsConfig = false;
     VByteArray vb;
@@ -402,7 +283,7 @@ void Commands::getMcconfDefault()
     emitData(vb);
 }
 
-void Commands::setMcconf(bool check)
+void Commands::setBMSconf(bool check)
 {
     if (mbmsConfig) {
         mbmsConfigLast = *mbmsConfig;
@@ -417,16 +298,6 @@ void Commands::setMcconf(bool check)
     }
 }
 
-void Commands::detectMotorParam(double current, double min_rpm, double low_duty)
-{
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_DETECT_MOTOR_PARAM);
-    vb.vbAppendDouble32(current, 1e3);
-    vb.vbAppendDouble32(min_rpm, 1e3);
-    vb.vbAppendDouble32(low_duty, 1e3);
-    emitData(vb);
-}
-
 void Commands::reboot()
 {
     VByteArray vb;
@@ -438,115 +309,6 @@ void Commands::sendAlive()
 {
     VByteArray vb;
     vb.vbAppendInt8(COMM_ALIVE);
-    emitData(vb);
-}
-
-void Commands::getDecodedPpm()
-{
-    if (mTimeoutDecPpm > 0) {
-        return;
-    }
-
-    mTimeoutDecPpm = mTimeoutCount;
-
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_GET_DECODED_PPM);
-    emitData(vb);
-}
-
-void Commands::getDecodedAdc()
-{
-    if (mTimeoutDecAdc > 0) {
-        return;
-    }
-
-    mTimeoutDecAdc = mTimeoutCount;
-
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_GET_DECODED_ADC);
-    emitData(vb);
-}
-
-void Commands::getDecodedChuk()
-{
-    if (mTimeoutDecChuk > 0) {
-        return;
-    }
-
-    mTimeoutDecChuk = mTimeoutCount;
-
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_GET_DECODED_CHUK);
-    emitData(vb);
-}
-
-void Commands::setServoPos(double pos)
-{
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_SET_SERVO_POS);
-    vb.vbAppendDouble16(pos, 1e3);
-    emitData(vb);
-}
-
-void Commands::measureRL()
-{
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_DETECT_MOTOR_R_L);
-    emitData(vb);
-}
-
-void Commands::measureLinkage(double current, double min_rpm, double low_duty, double resistance)
-{
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_DETECT_MOTOR_FLUX_LINKAGE);
-    vb.vbAppendDouble32(current, 1e3);
-    vb.vbAppendDouble32(min_rpm, 1e3);
-    vb.vbAppendDouble32(low_duty, 1e3);
-    vb.vbAppendDouble32(resistance, 1e6);
-    emitData(vb);
-}
-
-void Commands::measureEncoder(double current)
-{
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_DETECT_ENCODER);
-    vb.vbAppendDouble16(current, 1e3);
-    emitData(vb);
-}
-
-void Commands::measureHallFoc(double current)
-{
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_DETECT_HALL_FOC);
-    vb.vbAppendDouble32(current, 1e3);
-    emitData(vb);
-}
-
-void Commands::sendCustomAppData(QByteArray data)
-{
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_CUSTOM_APP_DATA);
-    vb.append(data);
-    emitData(vb);
-}
-
-void Commands::sendCustomAppData(unsigned char *data, unsigned int len)
-{
-    QByteArray ba((char*)data, len);
-    sendCustomAppData(ba);
-}
-
-void Commands::setChukData(chuck_data &data)
-{
-    VByteArray vb;
-    vb.vbAppendInt8(COMM_SET_CHUCK_DATA);
-    vb.vbAppendUint8(data.js_x);
-    vb.vbAppendUint8(data.js_y);
-    vb.vbAppendUint8(data.bt_c);
-    vb.vbAppendUint8(data.bt_z);
-    vb.vbAppendInt16(data.acc_x);
-    vb.vbAppendInt16(data.acc_y);
-    vb.vbAppendInt16(data.acc_z);
     emitData(vb);
 }
 
@@ -569,11 +331,9 @@ void Commands::timerSlot()
     }
 
     if (mTimeoutFwVer > 0) mTimeoutFwVer--;
-    if (mTimeoutMcconf > 0) mTimeoutMcconf--;
+    if (mTimeoutBMSconf > 0) mTimeoutBMSconf--;
     if (mTimeoutValues > 0) mTimeoutValues--;
-    if (mTimeoutDecPpm > 0) mTimeoutDecPpm--;
-    if (mTimeoutDecAdc > 0) mTimeoutDecAdc--;
-    if (mTimeoutDecChuk > 0) mTimeoutDecChuk--;
+    if (mTimeoutCells > 0) mTimeoutCells--;
 }
 
 void Commands::emitData(QByteArray data)
@@ -711,8 +471,8 @@ QString Commands::faultToStr(mc_fault_code fault)
 void Commands::setbmsConfig(ConfigParams *bmsConfig)
 {
     mbmsConfig = bmsConfig;
-    connect(mbmsConfig, SIGNAL(updateRequested()), this, SLOT(getMcconf()));
-    connect(mbmsConfig, SIGNAL(updateRequestDefault()), this, SLOT(getMcconfDefault()));
+    connect(mbmsConfig, SIGNAL(updateRequested()), this, SLOT(getBMSconf()));
+    connect(mbmsConfig, SIGNAL(updateRequestDefault()), this, SLOT(getBMSconfDefault()));
 }
 
 void Commands::startFirmwareUpload(QByteArray &newFirmware, bool isBootloader)

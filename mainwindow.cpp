@@ -75,18 +75,12 @@ MainWindow::MainWindow(QWidget *parent) :
     mKeyRight = false;
     mMcConfRead = false;
 
-    connect(mTimer, SIGNAL(timeout()),
-            this, SLOT(timerSlot()));
-    connect(mDieBieMS, SIGNAL(statusMessage(QString,bool)),
-            this, SLOT(showStatusInfo(QString,bool)));
-    connect(mDieBieMS, SIGNAL(messageDialog(QString,QString,bool,bool)),
-            this, SLOT(showMessageDialog(QString,QString,bool,bool)));
-    connect(mDieBieMS, SIGNAL(serialPortNotWritable(QString)),
-            this, SLOT(serialPortNotWritable(QString)));
-    connect(mDieBieMS->commands(), SIGNAL(bmsConfigCheckResult(QStringList)),
-            this, SLOT(bmsConfigCheckResult(QStringList)));
-    connect(ui->actionAboutQt, SIGNAL(triggered(bool)),
-            qApp, SLOT(aboutQt()));
+    connect(mTimer, SIGNAL(timeout()),this, SLOT(timerSlot()));
+    connect(mDieBieMS, SIGNAL(statusMessage(QString,bool)),this, SLOT(showStatusInfo(QString,bool)));
+    connect(mDieBieMS, SIGNAL(messageDialog(QString,QString,bool,bool)),this, SLOT(showMessageDialog(QString,QString,bool,bool)));
+    connect(mDieBieMS, SIGNAL(serialPortNotWritable(QString)),this, SLOT(serialPortNotWritable(QString)));
+    connect(mDieBieMS->commands(), SIGNAL(bmsConfigCheckResult(QStringList)),this, SLOT(bmsConfigCheckResult(QStringList)));
+    connect(ui->actionAboutQt, SIGNAL(triggered(bool)),qApp, SLOT(aboutQt()));
 
     // Remove the menu with the option to hide the toolbar
     ui->mainToolBar->setContextMenuPolicy(Qt::PreventContextMenu);
@@ -159,16 +153,14 @@ void MainWindow::timerSlot()
         ui->actionCanFwd->setChecked(mDieBieMS->commands()->getSendCan());
     }
 
-    // RT data
+    // RT data only every 10 iterations
     if (ui->actionRtData->isChecked()) {
-        mDieBieMS->commands()->getValues();
-    }
-
-    // APP RT data
-    if (ui->actionRtDataApp->isChecked()) {
-        mDieBieMS->commands()->getDecodedAdc();
-        mDieBieMS->commands()->getDecodedChuk();
-        mDieBieMS->commands()->getDecodedPpm();
+        static int values_cnt = 0;
+        values_cnt++;
+        if(values_cnt >= 10) {
+            values_cnt = 0;
+            mDieBieMS->commands()->getValues();
+        }
     }
 
     // Send alive command once every 10 iterations
@@ -188,7 +180,7 @@ void MainWindow::timerSlot()
         if (conf_cnt >= 20) {
             conf_cnt = 0;
             if (!mMcConfRead) {
-                mDieBieMS->commands()->getMcconf();
+                mDieBieMS->commands()->getBMSconf();
             }
         }
     }
@@ -197,7 +189,6 @@ void MainWindow::timerSlot()
     if (mDieBieMS->commands()->getFirmwareUploadProgress() > 0.1) {
         ui->actionSendAlive->setChecked(false);
         ui->actionRtData->setChecked(false);
-        ui->actionRtDataApp->setChecked(false);
     }
 
     // Run startup checks
@@ -332,17 +323,17 @@ void MainWindow::on_actionReboot_triggered()
 
 void MainWindow::on_actionReadBMScconf_triggered()
 {
-    mDieBieMS->commands()->getMcconf();
+    mDieBieMS->commands()->getBMSconf();
 }
 
 void MainWindow::on_actionReadBMScconfDefault_triggered()
 {
-    mDieBieMS->commands()->getMcconfDefault();
+    mDieBieMS->commands()->getBMSconfDefault();
 }
 
 void MainWindow::on_actionWriteBMScconf_triggered()
 {
-    mDieBieMS->commands()->setMcconf();
+    mDieBieMS->commands()->setBMSconf();
 }
 
 void MainWindow::on_actionSaveBMSConfXml_triggered()

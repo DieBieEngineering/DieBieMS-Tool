@@ -162,10 +162,8 @@ void PageRtData::setDieBieMS(BMSInterface *dieBieMS)
     mDieBieMS = dieBieMS;
 
     if (mDieBieMS) {
-        connect(mDieBieMS->commands(), SIGNAL(valuesReceived(MC_VALUES)),
-                this, SLOT(valuesReceived(MC_VALUES)));
-        connect(mDieBieMS->commands(), SIGNAL(rotorPosReceived(double)),
-                this, SLOT(rotorPosReceived(double)));
+        connect(mDieBieMS->commands(), SIGNAL(valuesReceived(MC_VALUES)),this, SLOT(valuesReceived(MC_VALUES)));
+        connect(mDieBieMS->commands(), SIGNAL(rotorPosReceived(double)),this, SLOT(rotorPosReceived(double)));
     }
 }
 

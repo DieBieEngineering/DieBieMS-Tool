@@ -49,56 +49,26 @@ public:
 
 signals:
     void dataToSend(QByteArray &data);
-
     void fwVersionReceived(int major, int minor, QString hw, QByteArray uuid);
     void ackReceived(QString ackType);
     void valuesReceived(MC_VALUES values);
     void printReceived(QString str);
-    void samplesReceived(QByteArray bytes);
     void rotorPosReceived(double pos);
-    void experimentSamplesReceived(QVector<double> samples);
-    void bldcDetectReceived(bldc_detect param);
-    void decodedPpmReceived(double value, double last_len);
-    void decodedAdcReceived(double value, double voltage, double value2, double voltage2);
-    void decodedChukReceived(double value);
-    void motorRLReceived(double r, double l);
-    void motorLinkageReceived(double flux_linkage);
-    void encoderParamReceived(double offset, double ratio, bool inverted);
-    void customAppDataReceived(QByteArray data);
-    void focHallTableReceived(QVector<int> hall_table, int res);
-    void nrfPairingRes(int res);
     void bmsConfigCheckResult(QStringList paramsNotSet);
 
 public slots:
     void processPacket(QByteArray data);
     void getFwVersion();
     void getValues();
+    void getCells();
     void sendTerminalCmd(QString cmd);
-    void setDutyCycle(double dutyCycle);
-    void setCurrent(double current);
-    void setCurrentBrake(double current);
-    void setRpm(int rpm);
-    void setPos(double pos);
-    void setHandbrake(double current);
     void setDetect(disp_pos_mode mode);
     void samplePrint(debug_sampling_mode mode, int sample_len, int dec);
-    void getMcconf();
-    void getMcconfDefault();
-    void setMcconf(bool check = true);
-    void detectMotorParam(double current, double min_rpm, double low_duty);
+    void getBMSconf();
+    void getBMSconfDefault();
+    void setBMSconf(bool check = true);
     void reboot();
     void sendAlive();
-    void getDecodedPpm();
-    void getDecodedAdc();
-    void getDecodedChuk();
-    void setServoPos(double pos);
-    void measureRL();
-    void measureLinkage(double current, double min_rpm, double low_duty, double resistance);
-    void measureEncoder(double current);
-    void measureHallFoc(double current);
-    void sendCustomAppData(QByteArray data);
-    void sendCustomAppData(unsigned char *data, unsigned int len);
-    void setChukData(chuck_data &data);
     void pairNrf(int ms);
 
 private slots:
@@ -130,13 +100,9 @@ private:
 
     int mTimeoutCount;
     int mTimeoutFwVer;
-    int mTimeoutMcconf;
-    int mTimeoutAppconf;
+    int mTimeoutBMSconf;
     int mTimeoutValues;
-    int mTimeoutDecPpm;
-    int mTimeoutDecAdc;
-    int mTimeoutDecChuk;
-
+    int mTimeoutCells;
 };
 
 #endif // COMMANDS_H
