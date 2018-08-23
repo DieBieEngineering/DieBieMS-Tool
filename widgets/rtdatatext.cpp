@@ -29,29 +29,31 @@ RtDataText::RtDataText(QWidget *parent) : QWidget(parent)
     mBoxW = 10;
     mTxtOfs = 2;
 
-    mValues.amp_hours = 0;
-    mValues.amp_hours_charged = 0;
-    mValues.current_in = 0;
-    mValues.current_motor = 0;
-    mValues.duty_now = 0;
-    mValues.fault_code = FAULT_CODE_NONE;
-    mValues.fault_str = "None";
-    mValues.id = 0;
-    mValues.iq = 0;
-    mValues.rpm = 0;
-    mValues.tachometer = 0;
-    mValues.tachometer_abs = 0;
-    mValues.temp_mos = 0;
-    mValues.temp_motor = 0;
-    mValues.v_in = 0;
-    mValues.watt_hours = 0;
-    mValues.watt_hours_charged = 0;
+    mValues.packVoltage      = 0.0;
+    mValues.packCurrent      = 0.0;
+    mValues.soC              = 0;
+    mValues.cVHigh           = 0.0;
+    mValues.cVAverage        = 0.0;
+    mValues.cVLow            = 0.0;
+    mValues.cVMisMatch       = 0.0;
+    mValues.loadLCVoltage    = 0.0;
+    mValues.loadLCCurrent    = 0.0;
+    mValues.loadHCVoltage    = 0.0;
+    mValues.loadHCCurrent    = 0.0;
+    mValues.auxVoltage       = 0.0;
+    mValues.auxCurrent       = 0.0;
+    mValues.tempBattHigh     = 0.0;
+    mValues.tempBattAverage  = 0.0;
+    mValues.tempBMSHigh      = 0.0;
+    mValues.tempBMSAverage   = 0.0;
+    mValues.opState          = "Unknown.";
+    mValues.faultState       = "Unknown.";
 }
 
-void RtDataText::setValues(const MC_VALUES &values)
+void RtDataText::setValues(const BMS_VALUES &values)
 {
     mValues = values;
-    mValues.fault_str.remove(0, 11);
+    //mValues.opState.remove(0, 11);
     update();
 }
 
@@ -81,15 +83,15 @@ void RtDataText::paintEvent(QPaintEvent *event)
                                     "T\n"
                                     "T\n"
                                     "T\n"
+                                    "T\n"
+                                    "T\n"
                                     "T\n");
 
     int boxh_new = br.height();
     int boxw_new = br.width();
     int txtofs_new = 5;
 
-    if (mBoxH != boxh_new ||
-            mBoxW != boxw_new ||
-            mTxtOfs != txtofs_new) {
+    if (mBoxH != boxh_new || mBoxW != boxw_new || mTxtOfs != txtofs_new) {
         mBoxH = boxh_new;
         mBoxW = boxw_new;
         mTxtOfs = txtofs_new;
@@ -103,16 +105,20 @@ void RtDataText::paintEvent(QPaintEvent *event)
     const double vidw = event->rect().width();
 
     // Left info box
-    str.sprintf("Power   : %.1f W\n"
-                "Duty    : %.2f %%\n"
-                "ERPM    : %.1f\n"
-                "I Batt  : %.2f A\n"
-                "I Motor : %.2f A\n",
-                mValues.v_in * mValues.current_in,
-                mValues.duty_now * 100.0,
-                mValues.rpm,
-                mValues.current_in,
-                mValues.current_motor);
+    str.sprintf("V Pack    : %.2f V\n"
+                "I Pack    : %.2f A\n"
+                "P Pack    : %.1f W\n"
+                "CVHigh    : %.3f V\n"
+                "CVAverage : %.3f V\n"
+                "CVLow     : %.3f V\n"
+                "CMismatch : %.3f V\n",
+                mValues.packVoltage,
+                mValues.packCurrent,
+                mValues.packCurrent * mValues.packVoltage,
+                mValues.cVHigh,
+                mValues.cVAverage,
+                mValues.cVLow,
+                mValues.cVMisMatch);
 
     painter.setOpacity(0.7);
     painter.fillRect(0, 0, bbox_w, bbow_h, Qt::black);
@@ -123,16 +129,20 @@ void RtDataText::paintEvent(QPaintEvent *event)
                      Qt::AlignLeft, str);
 
     // Middle info box
-    str.sprintf("T FET   : %.2f \u00B0C\n"
-                "T Motor : %.2f \u00B0C\n"
-                "Fault   : %s\n"
-                "Tac     : %i\n"
-                "Tac ABS : %i\n",
-                mValues.temp_mos,
-                mValues.temp_motor,
-                mValues.fault_str.toLocal8Bit().data(),
-                mValues.tachometer,
-                mValues.tachometer_abs);
+    str.sprintf("T Batt High : %.1f \u00B0C\n"
+                "T Batt Avrg : %.1f \u00B0C\n"
+                "T BMS High  : %.1f \u00B0C\n"
+                "T BMS Avrg  : %.1f \u00B0C\n"
+                "SoC         : %i %%\n"
+                "OpState     : %s\n"
+                "FaultState  : %s\n",
+                mValues.tempBattHigh,
+                mValues.tempBattAverage,
+                mValues.tempBMSHigh,
+                mValues.tempBMSAverage,
+                mValues.soC,
+                mValues.opState.toLocal8Bit().data(),
+                mValues.faultState.toLocal8Bit().data());
 
     painter.setOpacity(0.7);
     painter.fillRect(vidw / 2.0 - bbox_w / 2.0, 0, bbox_w, bbow_h, Qt::black);
@@ -143,23 +153,24 @@ void RtDataText::paintEvent(QPaintEvent *event)
                      Qt::AlignLeft, str);
 
     // Right info box
-    str.sprintf("Ah Draw   : %.1f mAh\n"
-                "Ah Charge : %.1f mAh\n"
-                "Wh Draw   : %.2f Wh\n"
-                "Wh Charge : %.2f Wh\n"
-                "Volts In  : %.1f V",
-                mValues.amp_hours * 1000.0,
-                mValues.amp_hours_charged * 1000.0,
-                mValues.watt_hours,
-                mValues.watt_hours_charged,
-                mValues.v_in);
+    str.sprintf("V Load LC : %.2f V\n"
+                "P Load LC : %.1f W\n"
+                "V Load HC : %.2f V\n"
+                "P Load HC : %.1f W\n"
+                "V Aux     : %.2f V\n"
+                "P Aux     : %.1f W\n"
+                "\n",
+                mValues.loadLCVoltage,
+                mValues.loadLCCurrent * mValues.loadLCVoltage,
+                mValues.loadHCVoltage,
+                mValues.loadHCCurrent * mValues.loadHCVoltage,
+                mValues.auxVoltage,
+                mValues.auxCurrent * mValues.auxVoltage);
 
     painter.setOpacity(0.7);
-    painter.fillRect(vidw - bbox_w, 0, bbox_w,
-                     mBoxH + 2 * mTxtOfs, Qt::black);
+    painter.fillRect(vidw - bbox_w, 0, bbox_w,mBoxH + 2 * mTxtOfs, Qt::black);
     painter.setOpacity(1.0);
 
     painter.setPen(Qt::white);
-    painter.drawText(QRectF(vidw - bbox_w + mTxtOfs, mTxtOfs, mBoxW, mBoxH),
-                     Qt::AlignLeft, str);
+    painter.drawText(QRectF(vidw - bbox_w + mTxtOfs, mTxtOfs, mBoxW, mBoxH),Qt::AlignLeft, str);
 }

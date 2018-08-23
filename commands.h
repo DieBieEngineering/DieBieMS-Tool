@@ -51,7 +51,7 @@ signals:
     void dataToSend(QByteArray &data);
     void fwVersionReceived(int major, int minor, QString hw, QByteArray uuid);
     void ackReceived(QString ackType);
-    void valuesReceived(MC_VALUES values);
+    void valuesReceived(BMS_VALUES values);
     void printReceived(QString str);
     void rotorPosReceived(double pos);
     void bmsConfigCheckResult(QStringList paramsNotSet);
@@ -77,7 +77,7 @@ private slots:
 private:
     void emitData(QByteArray data);
     void firmwareUploadUpdate(bool isTimeout);
-    QString faultToStr(mc_fault_code fault);
+    QString opStateToStr(OperationalStateTypedef fault);
 
     QTimer *mTimer;
     bool mSendCan;

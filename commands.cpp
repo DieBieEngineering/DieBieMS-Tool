@@ -120,30 +120,31 @@ void Commands::processPacket(QByteArray data)
 
     case COMM_GET_VALUES: {
         mTimeoutValues = 0;
-        MC_VALUES values;
-        values.temp_mos = vb.vbPopFrontDouble16(1e1);
-        values.temp_motor = vb.vbPopFrontDouble16(1e1);
-        values.current_motor = vb.vbPopFrontDouble32(1e2);
-        values.current_in = vb.vbPopFrontDouble32(1e2);
-        values.id = vb.vbPopFrontDouble32(1e2);
-        values.iq = vb.vbPopFrontDouble32(1e2);
-        values.duty_now = vb.vbPopFrontDouble16(1e3);
-        values.rpm = vb.vbPopFrontDouble32(1e0);
-        values.v_in = vb.vbPopFrontDouble16(1e1);
-        values.amp_hours = vb.vbPopFrontDouble32(1e4);
-        values.amp_hours_charged = vb.vbPopFrontDouble32(1e4);
-        values.watt_hours = vb.vbPopFrontDouble32(1e4);
-        values.watt_hours_charged = vb.vbPopFrontDouble32(1e4);
-        values.tachometer = vb.vbPopFrontInt32();
-        values.tachometer_abs = vb.vbPopFrontInt32();
-        values.fault_code = (mc_fault_code)vb.vbPopFrontInt8();
-        values.fault_str = faultToStr(values.fault_code);
+        BMS_VALUES values;
 
-        if (vb.size() >= 4) {
-            values.position = vb.vbPopFrontDouble32(1e6);
-        } else {
-            values.position = -1.0;
-        }
+        values.packVoltage      = vb.vbPopFrontDouble32(1e3);
+        values.packCurrent      = vb.vbPopFrontDouble32(1e3);
+
+        values.soC              = vb.vbPopFrontUint8();
+
+        values.cVHigh           = vb.vbPopFrontDouble32(1e3);
+        values.cVAverage        = vb.vbPopFrontDouble32(1e3);
+        values.cVLow            = vb.vbPopFrontDouble32(1e3);
+        values.cVMisMatch       = vb.vbPopFrontDouble32(1e3);
+
+        values.loadLCVoltage    = vb.vbPopFrontDouble16(1e2);
+        values.loadLCCurrent    = vb.vbPopFrontDouble16(1e2);
+        values.loadHCVoltage    = vb.vbPopFrontDouble16(1e2);
+        values.loadHCCurrent    = vb.vbPopFrontDouble16(1e2);
+        values.auxVoltage       = vb.vbPopFrontDouble16(1e2);
+        values.auxCurrent       = vb.vbPopFrontDouble16(1e2);
+
+        values.tempBattHigh     = vb.vbPopFrontDouble16(1e1);
+        values.tempBattAverage  = vb.vbPopFrontDouble16(1e1);
+        values.tempBMSHigh      = vb.vbPopFrontDouble16(1e1);
+        values.tempBMSAverage   = vb.vbPopFrontDouble16(1e1);
+
+        values.opState          = opStateToStr((OperationalStateTypedef)vb.vbPopFrontUint8());
 
         emit valuesReceived(values);
     } break;
@@ -454,16 +455,21 @@ void Commands::firmwareUploadUpdate(bool isTimeout)
     }
 }
 
-QString Commands::faultToStr(mc_fault_code fault)
+QString Commands::opStateToStr(OperationalStateTypedef fault)
 {
     switch (fault) {
-    case FAULT_CODE_NONE: return "FAULT_CODE_NONE";
-    case FAULT_CODE_OVER_VOLTAGE: return "FAULT_CODE_OVER_VOLTAGE";
-    case FAULT_CODE_UNDER_VOLTAGE: return "FAULT_CODE_UNDER_VOLTAGE";
-    case FAULT_CODE_DRV: return "FAULT_CODE_DRV";
-    case FAULT_CODE_ABS_OVER_CURRENT: return "FAULT_CODE_ABS_OVER_CURRENT";
-    case FAULT_CODE_OVER_TEMP_FET: return "FAULT_CODE_OVER_TEMP_FET";
-    case FAULT_CODE_OVER_TEMP_MOTOR: return "FAULT_CODE_OVER_TEMP_MOTOR";
+    case OP_STATE_INIT: return "Init";
+    case OP_STATE_CHARGING: return "Charging";
+    case OP_STATE_PRE_CHARGE: return "PreCharging";
+    case OP_STATE_LOAD_ENABLED: return "Load enabled";
+    case OP_STATE_BATTERY_DEAD: return "Battery dead";
+    case OP_STATE_POWER_DOWN: return "Power down";
+    case OP_STATE_EXTERNAL: return "External";
+    case OP_STATE_ERROR: return "Error";
+    case OP_STATE_ERROR_PRECHARGE: return "ErrPreCharge";
+    case OP_STATE_BALANCING: return "Balancing";
+    case OP_STATE_CHARGED: return "Charged";
+    case OP_STATE_FORCEON: return "ForceOn";
     default: return "Unknown fault";
     }
 }

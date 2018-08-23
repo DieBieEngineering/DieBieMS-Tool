@@ -28,7 +28,7 @@ class RtDataText : public QWidget
     Q_OBJECT
 public:
     explicit RtDataText(QWidget *parent = 0);
-    void setValues(const MC_VALUES &values);
+    void setValues(const BMS_VALUES &values);
 
     QSize sizeHint() const;
 
@@ -40,11 +40,10 @@ protected:
     void paintEvent(QPaintEvent *event);
 
 private:
-    MC_VALUES mValues;
+    BMS_VALUES mValues;
     int mBoxH;
     int mBoxW;
     int mTxtOfs;
-
 };
 
 #endif // RTDATATEXT_H

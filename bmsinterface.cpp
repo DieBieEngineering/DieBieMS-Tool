@@ -656,7 +656,7 @@ void BMSInterface::fwVersionReceived(int major, int minor, QString hw, QByteArra
                                                 " only the firmware can be changed."), false, false);
         }
     } else if (!fwPairs.contains(fw_connected)) {
-        if (fw_connected >= qMakePair(1, 1)) {
+        if (fw_connected >= qMakePair(0, 10)) {
             mCommands->setLimitedMode(true);
             updateFwRx(true);
             if (!wasReceived) {

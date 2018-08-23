@@ -35,6 +35,9 @@ void PageMasterGeneral::setDieBieMS(BMSInterface *dieBieMS)
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "useCANSafetyInput");
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "useCANDelayedPowerDown");
 
+        ui->masterSensorsTab->addRowSeparator(tr("Shunt"));
+        ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntLCFactor");
+        ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntLCOffset");
         ui->masterSensorsTab->addRowSeparator(tr("NTC enable mask"));
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "tempEnableMaskBMS");
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "tempEnableMaskBattery");

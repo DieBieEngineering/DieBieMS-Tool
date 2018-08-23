@@ -42,19 +42,11 @@ public:
 
 private slots:
     void timerSlot();
-    void valuesReceived(MC_VALUES values);
-    void rotorPosReceived(double pos);
+    void valuesReceived(BMS_VALUES values);
 
     void on_zoomHButton_toggled(bool checked);
     void on_zoomVButton_toggled(bool checked);
     void on_rescaleButton_clicked();
-    void on_posInductanceButton_clicked();
-    void on_posObserverButton_clicked();
-    void on_posEncoderButton_clicked();
-    void on_posPidButton_clicked();
-    void on_posPidErrorButton_clicked();
-    void on_posEncoderObserverErrorButton_clicked();
-    void on_posStopButton_clicked();
     void on_tempShowMosfetBox_toggled(bool checked);
     void on_tempShowMotorBox_toggled(bool checked);
 

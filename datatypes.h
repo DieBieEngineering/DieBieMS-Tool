@@ -119,6 +119,53 @@ public:
 
 Q_DECLARE_METATYPE(MC_VALUES)
 
+struct BMS_VALUES {
+    Q_GADGET
+
+    Q_PROPERTY(double packVoltage MEMBER packVoltage)
+    Q_PROPERTY(double packCurrent MEMBER packCurrent)
+    Q_PROPERTY(int soC MEMBER soC)
+    Q_PROPERTY(double cVHigh MEMBER cVHigh)
+    Q_PROPERTY(double cVAverage MEMBER cVAverage)
+    Q_PROPERTY(double cVLow MEMBER cVLow)
+    Q_PROPERTY(double cVMisMatch MEMBER cVMisMatch)
+    Q_PROPERTY(double loadLCVoltage MEMBER loadLCVoltage)
+    Q_PROPERTY(double loadLCCurrent MEMBER loadLCCurrent)
+    Q_PROPERTY(double loadHCVoltage MEMBER loadHCVoltage)
+    Q_PROPERTY(double loadHCCurrent MEMBER loadHCCurrent)
+    Q_PROPERTY(double auxVoltage MEMBER auxVoltage)
+    Q_PROPERTY(double auxCurrent MEMBER auxCurrent)
+    Q_PROPERTY(double tempBattHigh MEMBER tempBattHigh)
+    Q_PROPERTY(double tempBattAverage MEMBER tempBattAverage)
+    Q_PROPERTY(double tempBMSHigh MEMBER tempBMSHigh)
+    Q_PROPERTY(double tempBMSAverage MEMBER tempBMSAverage)
+    Q_PROPERTY(QString opState MEMBER opState)
+    Q_PROPERTY(QString faultState MEMBER faultState)
+
+public:
+    double packVoltage;
+    double packCurrent;
+    int    soC;
+    double cVHigh;
+    double cVAverage;
+    double cVLow;
+    double cVMisMatch;
+    double loadLCVoltage;
+    double loadLCCurrent;
+    double loadHCVoltage;
+    double loadHCCurrent;
+    double auxVoltage;
+    double auxCurrent;
+    double tempBattHigh;
+    double tempBattAverage;
+    double tempBMSHigh;
+    double tempBMSAverage;
+    QString opState;
+    QString faultState;
+};
+
+Q_DECLARE_METATYPE(BMS_VALUES)
+
 typedef enum {
     DEBUG_SAMPLING_OFF = 0,
     DEBUG_SAMPLING_NOW,
@@ -205,5 +252,20 @@ typedef enum {
     NRF_PAIR_OK,
     NRF_PAIR_FAIL
 } NRF_PAIR_RES;
+
+typedef enum {
+    OP_STATE_INIT = 0,									// 0
+    OP_STATE_CHARGING,									// 1
+    OP_STATE_PRE_CHARGE,								// 2
+    OP_STATE_LOAD_ENABLED,								// 3
+    OP_STATE_BATTERY_DEAD,								// 4
+    OP_STATE_POWER_DOWN,								// 5
+    OP_STATE_EXTERNAL,									// 6
+    OP_STATE_ERROR,										// 7
+    OP_STATE_ERROR_PRECHARGE,						    // 8
+    OP_STATE_BALANCING,									// 9
+    OP_STATE_CHARGED,									// 10
+    OP_STATE_FORCEON,									// 11
+} OperationalStateTypedef;
 
 #endif // DATATYPES_H

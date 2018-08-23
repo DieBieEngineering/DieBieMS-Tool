@@ -143,8 +143,7 @@ PageRtData::PageRtData(QWidget *parent) :
     ui->posPlot->xAxis->setLabel("Sample");
     ui->posPlot->yAxis->setLabel("Degrees");
 
-    connect(mTimer, SIGNAL(timeout()),
-            this, SLOT(timerSlot()));
+    connect(mTimer, SIGNAL(timeout()),this, SLOT(timerSlot()));
 }
 
 PageRtData::~PageRtData()
@@ -162,8 +161,7 @@ void PageRtData::setDieBieMS(BMSInterface *dieBieMS)
     mDieBieMS = dieBieMS;
 
     if (mDieBieMS) {
-        connect(mDieBieMS->commands(), SIGNAL(valuesReceived(MC_VALUES)),this, SLOT(valuesReceived(MC_VALUES)));
-        connect(mDieBieMS->commands(), SIGNAL(rotorPosReceived(double)),this, SLOT(rotorPosReceived(double)));
+        connect(mDieBieMS->commands(), SIGNAL(valuesReceived(BMS_VALUES)),this, SLOT(valuesReceived(BMS_VALUES)));
     }
 }
 
@@ -218,7 +216,6 @@ void PageRtData::timerSlot()
             xAxis[i] = (double)i;
         }
 
-        ui->posBar->setValue((int)fabs(mPositionVec.last()));
         ui->posPlot->graph(0)->setData(xAxis, mPositionVec);
 
         if (ui->autoscaleButton->isChecked()) {
@@ -231,20 +228,20 @@ void PageRtData::timerSlot()
     }
 }
 
-void PageRtData::valuesReceived(MC_VALUES values)
+void PageRtData::valuesReceived(BMS_VALUES values)
 {
     ui->rtText->setValues(values);
 
     const int maxS = 500;
 
-    appendDoubleAndTrunc(&mTempMosVec, values.temp_mos, maxS);
-    appendDoubleAndTrunc(&mTempMotorVec, values.temp_motor, maxS);
-    appendDoubleAndTrunc(&mCurrInVec, values.current_in, maxS);
-    appendDoubleAndTrunc(&mCurrMotorVec, values.current_motor, maxS);
-    appendDoubleAndTrunc(&mIdVec, values.id, maxS);
-    appendDoubleAndTrunc(&mIqVec, values.iq, maxS);
-    appendDoubleAndTrunc(&mDutyVec, values.duty_now, maxS);
-    appendDoubleAndTrunc(&mRpmVec, values.rpm, maxS);
+    //appendDoubleAndTrunc(&mTempMosVec, values.temp_mos, maxS);
+    //appendDoubleAndTrunc(&mTempMotorVec, values.temp_motor, maxS);
+    //appendDoubleAndTrunc(&mCurrInVec, values.current_in, maxS);
+    //appendDoubleAndTrunc(&mCurrMotorVec, values.current_motor, maxS);
+    //appendDoubleAndTrunc(&mIdVec, values.id, maxS);
+    //appendDoubleAndTrunc(&mIqVec, values.iq, maxS);
+    //appendDoubleAndTrunc(&mDutyVec, values.duty_now, maxS);
+    //appendDoubleAndTrunc(&mRpmVec, values.rpm, maxS);
 
     qint64 tNow = QDateTime::currentMSecsSinceEpoch();
 
@@ -253,19 +250,13 @@ void PageRtData::valuesReceived(MC_VALUES values)
         elapsed = 1.0;
     }
 
-    mSecondCounter += elapsed;
+    //mSecondCounter += elapsed;
 
-    appendDoubleAndTrunc(&mSeconds, mSecondCounter, maxS);
+    //appendDoubleAndTrunc(&mSeconds, mSecondCounter, maxS);
 
-    mLastUpdateTime = tNow;
+    //mLastUpdateTime = tNow;
 
-    mUpdateValPlot = true;
-}
-
-void PageRtData::rotorPosReceived(double pos)
-{
-    appendDoubleAndTrunc(&mPositionVec, pos, 1500);
-    mUpdatePosPlot = true;
+    //mUpdateValPlot = true;
 }
 
 void PageRtData::appendDoubleAndTrunc(QVector<double> *vec, double num, int maxSize)
@@ -315,55 +306,6 @@ void PageRtData::on_rescaleButton_clicked()
     ui->rpmPlot->replot();
     ui->focPlot->replot();
     ui->posPlot->replot();
-}
-
-void PageRtData::on_posInductanceButton_clicked()
-{
-    if (mDieBieMS) {
-        mDieBieMS->commands()->setDetect(DISP_POS_MODE_INDUCTANCE);
-    }
-}
-
-void PageRtData::on_posObserverButton_clicked()
-{
-    if (mDieBieMS) {
-        mDieBieMS->commands()->setDetect(DISP_POS_MODE_OBSERVER);
-    }
-}
-
-void PageRtData::on_posEncoderButton_clicked()
-{
-    if (mDieBieMS) {
-        mDieBieMS->commands()->setDetect(DISP_POS_MODE_ENCODER);
-    }
-}
-
-void PageRtData::on_posPidButton_clicked()
-{
-    if (mDieBieMS) {
-        mDieBieMS->commands()->setDetect(DISP_POS_MODE_PID_POS);
-    }
-}
-
-void PageRtData::on_posPidErrorButton_clicked()
-{
-    if (mDieBieMS) {
-        mDieBieMS->commands()->setDetect(DISP_POS_MODE_PID_POS_ERROR);
-    }
-}
-
-void PageRtData::on_posEncoderObserverErrorButton_clicked()
-{
-    if (mDieBieMS) {
-        mDieBieMS->commands()->setDetect(DISP_POS_MODE_ENCODER_OBSERVER_ERROR);
-    }
-}
-
-void PageRtData::on_posStopButton_clicked()
-{
-    if (mDieBieMS) {
-        mDieBieMS->commands()->setDetect(DISP_POS_MODE_NONE);
-    }
 }
 
 void PageRtData::on_tempShowMosfetBox_toggled(bool checked)
