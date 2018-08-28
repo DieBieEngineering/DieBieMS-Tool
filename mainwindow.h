@@ -32,6 +32,7 @@
 #include <cmath>
 #include <QEventLoop>
 #include <QDesktopServices>
+#include <QLoggingCategory>
 
 #include "bmsinterface.h"
 #include "ui_mainwindow.h"

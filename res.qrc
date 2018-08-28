@@ -126,5 +126,6 @@
         <file>res/bootloaders/DieBieMS.bin</file>
         <file>res/firmwares/DieBieMS/DieBieMS_default.bin</file>
         <file>res/firmwares/DieBieMS/DieBieMS_Efoil.bin</file>
+        <file>res/firmwares/DieBieMS/DieBieMS_defaultOld.bin</file>
     </qresource>
 </RCC>

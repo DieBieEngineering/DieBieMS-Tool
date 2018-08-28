@@ -24,33 +24,63 @@
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <widget class="QWidget" name="tab">
+       <widget class="QWidget" name="cellBarGraphTab">
         <attribute name="title">
-         <string>Current</string>
+         <string>CellBarGraph</string>
         </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
-          <widget class="QCustomPlot" name="currentPlot" native="true"/>
+          <widget class="QCustomPlot" name="cellBarGraph" native="true"/>
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_2">
+       <widget class="QWidget" name="ivLCGraphTab">
         <attribute name="title">
-         <string>Temperature</string>
+         <string>LC IVGraph</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QCustomPlot" name="ivLCGraph" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="ivHCGraphTab">
+        <attribute name="title">
+         <string>HC IVGraph</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <item>
+          <widget class="QCustomPlot" name="ivHCGraph" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="cellGraphTab">
+        <attribute name="title">
+         <string>CellGraph</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QCustomPlot" name="cellGraph" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tempGraphTab">
+        <attribute name="title">
+         <string>TempGraph</string>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,0">
          <item>
-          <widget class="QCustomPlot" name="tempPlot" native="true"/>
+          <widget class="QCustomPlot" name="tempGraph" native="true"/>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
-            <widget class="QCheckBox" name="tempShowMosfetBox">
+            <widget class="QCheckBox" name="tempShowBMSBox">
              <property name="toolTip">
               <string>Show MOSFET temperature</string>
              </property>
              <property name="text">
-              <string>MOSFET</string>
+              <string>BMS</string>
              </property>
              <property name="checked">
               <bool>true</bool>
@@ -58,12 +88,12 @@
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="tempShowMotorBox">
+            <widget class="QCheckBox" name="tempShowBatteryBox">
              <property name="toolTip">
               <string>Show motor temperature</string>
              </property>
              <property name="text">
-              <string>Motor</string>
+              <string>Battery</string>
              </property>
              <property name="checked">
               <bool>true</bool>
@@ -82,47 +112,6 @@
               </size>
              </property>
             </spacer>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab_3">
-        <attribute name="title">
-         <string>RPM</string>
-        </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <item>
-          <widget class="QCustomPlot" name="rpmPlot" native="true"/>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab_4">
-        <attribute name="title">
-         <string>FOC</string>
-        </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_5">
-         <item>
-          <widget class="QCustomPlot" name="focPlot" native="true"/>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab_5">
-        <attribute name="title">
-         <string>Rotor Position</string>
-        </attribute>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_8">
-           <item>
-            <widget class="QCustomPlot" name="posPlot" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-            </widget>
            </item>
           </layout>
          </item>

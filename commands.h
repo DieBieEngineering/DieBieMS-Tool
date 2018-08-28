@@ -52,6 +52,9 @@ signals:
     void fwVersionReceived(int major, int minor, QString hw, QByteArray uuid);
     void ackReceived(QString ackType);
     void valuesReceived(BMS_VALUES values);
+
+    void cellsReceived(int cellCount, QVector<double> cellVoltageArray);
+
     void printReceived(QString str);
     void rotorPosReceived(double pos);
     void bmsConfigCheckResult(QStringList paramsNotSet);

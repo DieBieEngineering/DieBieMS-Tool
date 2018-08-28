@@ -50,7 +50,7 @@
      <item>
       <widget class="QPushButton" name="autoConnectButton">
        <property name="toolTip">
-        <string>Automatically connect to the VESC using the USB connection.</string>
+        <string>Automatically connect using the USB connection.</string>
        </property>
        <property name="text">
         <string>Connect</string>

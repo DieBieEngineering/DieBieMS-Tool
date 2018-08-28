@@ -24,6 +24,7 @@
 #include <QVector>
 #include <QTimer>
 #include "bmsinterface.h"
+#include "ui_pagertdata.h"
 
 namespace Ui {
 class PageRtData;
@@ -43,37 +44,46 @@ public:
 private slots:
     void timerSlot();
     void valuesReceived(BMS_VALUES values);
+    void cellsReceived(int cellCount, QVector<double> cellVoltageArray);
 
     void on_zoomHButton_toggled(bool checked);
     void on_zoomVButton_toggled(bool checked);
     void on_rescaleButton_clicked();
-    void on_tempShowMosfetBox_toggled(bool checked);
-    void on_tempShowMotorBox_toggled(bool checked);
+    void on_tempShowBMSBox_toggled(bool checked);
+    void on_tempShowBatteryBox_toggled(bool checked);
 
 private:
     Ui::PageRtData *ui;
     BMSInterface *mDieBieMS;
     QTimer *mTimer;
 
-    QVector<double> mTempMosVec;
-    QVector<double> mTempMotorVec;
-    QVector<double> mCurrInVec;
-    QVector<double> mCurrMotorVec;
-    QVector<double> mIdVec;
-    QVector<double> mIqVec;
-    QVector<double> mDutyVec;
-    QVector<double> mRpmVec;
-    QVector<double> mPositionVec;
+    QVector<double> mPackVoltage;
+    QVector<double> mLCLoadVoltage;
+    QVector<double> mLCLoadCurrent;
+    QVector<double> mHCLoadVoltage;
+    QVector<double> mHCLoadCurrent;
+    QVector<double> mAuxVoltage;
+    QVector<double> mAuxCurrent;
+    QVector<double> mCellVHigh;
+    QVector<double> mCellVAverage;
+    QVector<double> mCellVLow;
+    QVector<double> mTempBMSHigh;
+    QVector<double> mTempBMSAverage;
+    QVector<double> mTempBattHigh;
+    QVector<double> mTempBattAverage;
     QVector<double> mSeconds;
 
     double mSecondCounter;
     qint64 mLastUpdateTime;
 
     bool mUpdateValPlot;
-    bool mUpdatePosPlot;
+
+    QCPBarsGroup *group;
+    QCPBars *bars;
 
     void appendDoubleAndTrunc(QVector<double> *vec, double num, int maxSize);
     void updateZoom();
+    void updateBarGraph(void);
 
 };
 

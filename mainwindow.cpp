@@ -65,6 +65,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QLoggingCategory::setFilterRules("qt.network.ssl.warning=false");
+
     mVersion = QString::number(DT_VERSION);
     mDieBieMS = new BMSInterface(this);
     mStatusInfoTime = 0;
@@ -111,7 +113,7 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
 
-    mPageDebugPrint->printConsole("VESC® Tool " + mVersion + " started<br>");
+    mPageDebugPrint->printConsole("DieBieMSTool " + mVersion + " started<br>");
 }
 
 MainWindow::~MainWindow()
@@ -153,13 +155,21 @@ void MainWindow::timerSlot()
         ui->actionCanFwd->setChecked(mDieBieMS->commands()->getSendCan());
     }
 
-    // RT data only every 10 iterations
+    // RT data only every 5 iterations
     if (ui->actionRtData->isChecked()) {
         static int values_cnt = 0;
+        static int cells_cnt = 0;
+
         values_cnt++;
-        if(values_cnt >= 10) {
+        if(values_cnt >= 5) {
             values_cnt = 0;
             mDieBieMS->commands()->getValues();
+        }
+
+        cells_cnt++;
+        if(cells_cnt >= 20) {
+            cells_cnt = 0;
+            mDieBieMS->commands()->getCells();
         }
     }
 

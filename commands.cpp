@@ -149,9 +149,21 @@ void Commands::processPacket(QByteArray data)
         emit valuesReceived(values);
     } break;
 
-    case COMM_GET_BMS_CELLS:
+    case COMM_GET_BMS_CELLS:{
         mTimeoutCells = 0;
-        break;
+        int mCellAmount;
+        QVector<double> mCellVoltages;
+        mCellVoltages.clear();
+
+        mCellAmount = vb.vbPopFrontUint8();
+
+        for(int cellValuePointer = 0; cellValuePointer < mCellAmount; cellValuePointer++){
+            mCellVoltages.append(vb.vbPopFrontDouble16(1e3));
+        }
+
+        emit cellsReceived(mCellAmount,mCellVoltages);
+
+       } break;
 
     case COMM_PRINT:
         emit printReceived(QString::fromLatin1(vb));

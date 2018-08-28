@@ -29,6 +29,7 @@ void PageMasterGeneral::setDieBieMS(BMSInterface *dieBieMS)
         ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "notUsedCurrentThreshold");
         ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "notUsedTimeout");
 
+
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "CANID");
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "CANIDStyle");
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "emitStatusOverCAN");

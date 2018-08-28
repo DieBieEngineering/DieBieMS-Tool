@@ -18,7 +18,6 @@
     */
 
 #include "pagertdata.h"
-#include "ui_pagertdata.h"
 
 PageRtData::PageRtData(QWidget *parent) :
     QWidget(parent),
@@ -35,115 +34,146 @@ PageRtData::PageRtData(QWidget *parent) :
     mLastUpdateTime = 0;
 
     mUpdateValPlot = false;
-    mUpdatePosPlot = false;
 
-    ui->currentPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
-    ui->tempPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
-    ui->rpmPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
-    ui->focPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
-    ui->posPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+    ui->ivLCGraph->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+    ui->ivHCGraph->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+    ui->cellGraph->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+    ui->tempGraph->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
 
-    // Current and duty
+    // LC IVGraph
     int graphIndex = 0;
-    ui->currentPlot->addGraph();
-    ui->currentPlot->graph(graphIndex)->setPen(QPen(Qt::blue));
-    ui->currentPlot->graph(graphIndex)->setName("Current in");
+    ui->ivLCGraph->addGraph();
+    ui->ivLCGraph->graph(graphIndex)->setPen(QPen(Qt::red));
+    ui->ivLCGraph->graph(graphIndex)->setName("Pack");
     graphIndex++;
 
-    ui->currentPlot->addGraph();
-    ui->currentPlot->graph(graphIndex)->setPen(QPen(Qt::red));
-    ui->currentPlot->graph(graphIndex)->setName("Current motor");
+    ui->ivLCGraph->addGraph();
+    ui->ivLCGraph->graph(graphIndex)->setPen(QPen(Qt::darkGreen));
+    ui->ivLCGraph->graph(graphIndex)->setName("LC Voltage");
     graphIndex++;
 
-    ui->currentPlot->addGraph(ui->currentPlot->xAxis, ui->currentPlot->yAxis2);
-    ui->currentPlot->graph(graphIndex)->setPen(QPen(Qt::green));
-    ui->currentPlot->graph(graphIndex)->setName("Duty cycle");
+    ui->ivLCGraph->addGraph(ui->ivLCGraph->xAxis, ui->ivLCGraph->yAxis2);
+    ui->ivLCGraph->graph(graphIndex)->setPen(QPen(Qt::green));
+    ui->ivLCGraph->graph(graphIndex)->setName("LC Current");
     graphIndex++;
 
-    // Temperatures
+    // HC IVGraph
     graphIndex = 0;
-    ui->tempPlot->addGraph();
-    ui->tempPlot->graph(graphIndex)->setPen(QPen(Qt::blue));
-    ui->tempPlot->graph(graphIndex)->setName("Temperature MOSFET");
+    ui->ivHCGraph->addGraph();
+    ui->ivHCGraph->graph(graphIndex)->setPen(QPen(Qt::blue));
+    ui->ivHCGraph->graph(graphIndex)->setName("HC Voltage");
     graphIndex++;
 
-    ui->tempPlot->addGraph(ui->tempPlot->xAxis, ui->tempPlot->yAxis2);
-    ui->tempPlot->graph(graphIndex)->setPen(QPen(Qt::magenta));
-    ui->tempPlot->graph(graphIndex)->setName("Temperature Motor");
+    ui->ivHCGraph->addGraph(ui->ivHCGraph->xAxis, ui->ivHCGraph->yAxis2);
+    ui->ivHCGraph->graph(graphIndex)->setPen(QPen(Qt::magenta));
+    ui->ivHCGraph->graph(graphIndex)->setName("HC Current");
     graphIndex++;
 
-    // RPM
+    // Cell voltage graph
     graphIndex = 0;
-    ui->rpmPlot->addGraph();
-    ui->rpmPlot->graph(graphIndex)->setPen(QPen(Qt::blue));
-    ui->rpmPlot->graph(graphIndex)->setName("ERPM");
+    ui->cellGraph->addGraph();
+    ui->cellGraph->graph(graphIndex)->setPen(QPen(Qt::green));
+    ui->cellGraph->graph(graphIndex)->setName("Cell high");
     graphIndex++;
 
-    // FOC
+    ui->cellGraph->addGraph();
+    ui->cellGraph->graph(graphIndex)->setPen(QPen(Qt::blue));
+    ui->cellGraph->graph(graphIndex)->setName("Cell average");
+    graphIndex++;
+
+    ui->cellGraph->addGraph();
+    ui->cellGraph->graph(graphIndex)->setPen(QPen(Qt::red));
+    ui->cellGraph->graph(graphIndex)->setName("Cell low");
+    graphIndex++;
+
+    // Temperature graph
+    // LC IVGraph
     graphIndex = 0;
-    ui->focPlot->addGraph();
-    ui->focPlot->graph(graphIndex)->setPen(QPen(Qt::blue));
-    ui->focPlot->graph(graphIndex)->setName("D Current");
+    ui->tempGraph->addGraph();
+    ui->tempGraph->graph(graphIndex)->setPen(QPen(Qt::blue));
+    ui->tempGraph->graph(graphIndex)->setName("BMS high");
     graphIndex++;
 
-    ui->focPlot->addGraph();
-    ui->focPlot->graph(graphIndex)->setPen(QPen(Qt::red));
-    ui->focPlot->graph(graphIndex)->setName("Q Current");
+    ui->tempGraph->addGraph();
+    ui->tempGraph->graph(graphIndex)->setPen(QPen(Qt::darkBlue));
+    ui->tempGraph->graph(graphIndex)->setName("BMS Average");
+    graphIndex++;
+
+    ui->tempGraph->addGraph();
+    ui->tempGraph->graph(graphIndex)->setPen(QPen(Qt::green));
+    ui->tempGraph->graph(graphIndex)->setName("Battery high");
+    graphIndex++;
+
+    ui->tempGraph->addGraph();
+    ui->tempGraph->graph(graphIndex)->setPen(QPen(Qt::darkGreen));
+    ui->tempGraph->graph(graphIndex)->setName("Battery Average");
     graphIndex++;
 
     QFont legendFont = font();
     legendFont.setPointSize(9);
 
-    ui->currentPlot->legend->setVisible(true);
-    ui->currentPlot->legend->setFont(legendFont);
-    ui->currentPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
-    ui->currentPlot->legend->setBrush(QBrush(QColor(255,255,255,230)));
-    ui->currentPlot->xAxis->setLabel("Seconds (s)");
-    ui->currentPlot->yAxis->setLabel("Ampere (A)");
-    ui->currentPlot->yAxis2->setLabel("Duty Cycle");
+    //LC Graph
+    ui->ivLCGraph->legend->setVisible(true);
+    ui->ivLCGraph->legend->setFont(legendFont);
+    ui->ivLCGraph->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
+    ui->ivLCGraph->legend->setBrush(QBrush(QColor(255,255,255,230)));
+    ui->ivLCGraph->xAxis->setLabel("Seconds (s)");
+    ui->ivLCGraph->yAxis->setLabel("Voltage (V)");
+    ui->ivLCGraph->yAxis2->setLabel("Current (A)");
+    ui->ivLCGraph->yAxis->setRange(0, 60);
+    ui->ivLCGraph->yAxis2->setRange(-5, 5);
+    ui->ivLCGraph->yAxis2->setVisible(true);
 
-    ui->tempPlot->legend->setVisible(true);
-    ui->tempPlot->legend->setFont(legendFont);
-    ui->tempPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
-    ui->tempPlot->legend->setBrush(QBrush(QColor(255,255,255,230)));
-    ui->tempPlot->xAxis->setLabel("Seconds (s)");
-    ui->tempPlot->yAxis->setLabel("Temperature MOSFET (\u00B0C)");
-    ui->tempPlot->yAxis2->setLabel("Temperature Motor (\u00B0C)");
+    //HC Graph
+    ui->ivHCGraph->legend->setVisible(true);
+    ui->ivHCGraph->legend->setFont(legendFont);
+    ui->ivHCGraph->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
+    ui->ivHCGraph->legend->setBrush(QBrush(QColor(255,255,255,230)));
+    ui->ivHCGraph->xAxis->setLabel("Seconds (s)");
+    ui->ivHCGraph->yAxis->setLabel("Voltage (V)");
+    ui->ivHCGraph->yAxis2->setLabel("Current (A)");
+    ui->ivHCGraph->yAxis->setRange(0, 60);
+    ui->ivHCGraph->yAxis2->setRange(-5, 5);
+    ui->ivHCGraph->yAxis2->setVisible(true);
 
-    ui->rpmPlot->legend->setVisible(true);
-    ui->rpmPlot->legend->setFont(legendFont);
-    ui->rpmPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
-    ui->rpmPlot->legend->setBrush(QBrush(QColor(255,255,255,230)));
-    ui->rpmPlot->xAxis->setLabel("Seconds (s)");
-    ui->rpmPlot->yAxis->setLabel("ERPM");
+    //Cell voltage Graph
+    ui->cellGraph->legend->setVisible(true);
+    ui->cellGraph->legend->setFont(legendFont);
+    ui->cellGraph->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
+    ui->cellGraph->legend->setBrush(QBrush(QColor(255,255,255,230)));
+    ui->cellGraph->xAxis->setLabel("Seconds (s)");
+    ui->cellGraph->yAxis->setLabel("Voltage (V)");
+    ui->cellGraph->yAxis->setRange(0, 4.2);
 
-    ui->focPlot->legend->setVisible(true);
-    ui->focPlot->legend->setFont(legendFont);
-    ui->focPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
-    ui->focPlot->legend->setBrush(QBrush(QColor(255,255,255,230)));
-    ui->focPlot->xAxis->setLabel("Seconds (s)");
-    ui->focPlot->yAxis->setLabel("Current");
+    //Temperature Graph
+    ui->tempGraph->legend->setVisible(true);
+    ui->tempGraph->legend->setFont(legendFont);
+    ui->tempGraph->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
+    ui->tempGraph->legend->setBrush(QBrush(QColor(255,255,255,230)));
+    ui->tempGraph->xAxis->setLabel("Seconds (s)");
+    ui->tempGraph->yAxis->setLabel("Temperature (\u00B0C)");
+    ui->tempGraph->yAxis->setRange(0, 60);
 
-    ui->currentPlot->yAxis->setRange(-20, 130);
-    ui->currentPlot->yAxis2->setRange(-0.2, 1.3);
-    ui->currentPlot->yAxis2->setVisible(true);
-    ui->tempPlot->yAxis->setRange(0, 120);
-    ui->tempPlot->yAxis2->setRange(0, 120);
-    ui->tempPlot->yAxis2->setVisible(true);
-    ui->rpmPlot->yAxis->setRange(0, 120);
-    ui->focPlot->yAxis->setRange(0, 120);
+    // Cell bar graph
+    group = new QCPBarsGroup(ui->cellBarGraph);
+    bars = new QCPBars(ui->cellBarGraph->xAxis, ui->cellBarGraph->yAxis);
 
-    ui->posPlot->addGraph();
-    ui->posPlot->graph(0)->setPen(QPen(Qt::blue));
-    ui->posPlot->graph(0)->setName("Position");
-    ui->posPlot->legend->setVisible(true);
-    ui->posPlot->legend->setFont(legendFont);
-    ui->posPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
-    ui->posPlot->legend->setBrush(QBrush(QColor(255,255,255,230)));
-    ui->posPlot->xAxis->setLabel("Sample");
-    ui->posPlot->yAxis->setLabel("Degrees");
+    bars->setBrush(QColor(0, 255, 0, 50));
+    bars->setPen(QColor(0, 211, 56));
+    bars->setWidth(0.9);
+    bars->setBarsGroup(group);
+
+    ui->cellBarGraph->xAxis->setRange(0.5, 12);
+    ui->cellBarGraph->yAxis->setRange(2.5, 4.15);
+    ui->cellBarGraph->yAxis->setLabel("Voltage (V)");
+    ui->cellBarGraph->xAxis->setTickLabelRotation(85);
+    ui->cellBarGraph->xAxis->setSubTicks(false);
+    ui->cellBarGraph->xAxis->setTickLength(0, 5);
 
     connect(mTimer, SIGNAL(timeout()),this, SLOT(timerSlot()));
+}
+
+void PageRtData::updateBarGraph(void) {
 }
 
 PageRtData::~PageRtData()
@@ -162,13 +192,14 @@ void PageRtData::setDieBieMS(BMSInterface *dieBieMS)
 
     if (mDieBieMS) {
         connect(mDieBieMS->commands(), SIGNAL(valuesReceived(BMS_VALUES)),this, SLOT(valuesReceived(BMS_VALUES)));
+        connect(mDieBieMS->commands(), SIGNAL(cellsReceived(int,QVector<double>)),this, SLOT(cellsReceived(int,QVector<double>)));
     }
 }
 
 void PageRtData::timerSlot()
 {
     if (mUpdateValPlot) {
-        int dataSize = mTempMosVec.size();
+        int dataSize = mPackVoltage.size();
 
         QVector<double> xAxis(dataSize);
         for (int i = 0;i < mSeconds.size();i++) {
@@ -177,54 +208,39 @@ void PageRtData::timerSlot()
 
         // Current and duty-plot
         int graphIndex = 0;
-        ui->currentPlot->graph(graphIndex++)->setData(xAxis, mCurrInVec);
-        ui->currentPlot->graph(graphIndex++)->setData(xAxis, mCurrMotorVec);
-        ui->currentPlot->graph(graphIndex++)->setData(xAxis, mDutyVec);
+        ui->ivLCGraph->graph(graphIndex++)->setData(xAxis, mPackVoltage);
+        ui->ivLCGraph->graph(graphIndex++)->setData(xAxis, mLCLoadVoltage);
+        ui->ivLCGraph->graph(graphIndex++)->setData(xAxis, mLCLoadCurrent);
 
-        // Temperature plot
         graphIndex = 0;
-        ui->tempPlot->graph(graphIndex++)->setData(xAxis, mTempMosVec);
-        ui->tempPlot->graph(graphIndex++)->setData(xAxis, mTempMotorVec);
+        ui->ivHCGraph->graph(graphIndex++)->setData(xAxis, mHCLoadVoltage);
+        ui->ivHCGraph->graph(graphIndex++)->setData(xAxis, mHCLoadCurrent);
 
-        // RPM plot
         graphIndex = 0;
-        ui->rpmPlot->graph(graphIndex++)->setData(xAxis, mRpmVec);
+        ui->cellGraph->graph(graphIndex++)->setData(xAxis, mCellVHigh);
+        ui->cellGraph->graph(graphIndex++)->setData(xAxis, mCellVAverage);
+        ui->cellGraph->graph(graphIndex++)->setData(xAxis, mCellVLow);
 
-        // FOC plot
         graphIndex = 0;
-        ui->focPlot->graph(graphIndex++)->setData(xAxis, mIdVec);
-        ui->focPlot->graph(graphIndex++)->setData(xAxis, mIqVec);
+        ui->tempGraph->graph(graphIndex++)->setData(xAxis, mTempBMSHigh);
+        ui->tempGraph->graph(graphIndex++)->setData(xAxis, mTempBMSAverage);
+        ui->tempGraph->graph(graphIndex++)->setData(xAxis, mTempBattHigh);
+        ui->tempGraph->graph(graphIndex++)->setData(xAxis, mTempBattAverage);
 
         if (ui->autoscaleButton->isChecked()) {
-            ui->currentPlot->rescaleAxes();
-            ui->tempPlot->rescaleAxes();
-            ui->rpmPlot->rescaleAxes();
-            ui->focPlot->rescaleAxes();
+            ui->ivLCGraph->rescaleAxes();
+            ui->ivHCGraph->rescaleAxes();
+            ui->cellGraph->rescaleAxes();
+            ui->tempGraph->rescaleAxes();
         }
 
-        ui->currentPlot->replot();
-        ui->tempPlot->replot();
-        ui->rpmPlot->replot();
-        ui->focPlot->replot();
+        ui->ivLCGraph->replot();
+        ui->ivHCGraph->replot();
+        ui->cellGraph->replot();
+        ui->tempGraph->replot();
+        ui->cellBarGraph->replot();
 
         mUpdateValPlot = false;
-    }
-
-    if (mUpdatePosPlot) {
-        QVector<double> xAxis(mPositionVec.size());
-        for (int i = 0;i < mPositionVec.size();i++) {
-            xAxis[i] = (double)i;
-        }
-
-        ui->posPlot->graph(0)->setData(xAxis, mPositionVec);
-
-        if (ui->autoscaleButton->isChecked()) {
-            ui->posPlot->rescaleAxes();
-        }
-
-        ui->posPlot->replot();
-
-        mUpdatePosPlot = false;
     }
 }
 
@@ -234,14 +250,23 @@ void PageRtData::valuesReceived(BMS_VALUES values)
 
     const int maxS = 500;
 
-    //appendDoubleAndTrunc(&mTempMosVec, values.temp_mos, maxS);
-    //appendDoubleAndTrunc(&mTempMotorVec, values.temp_motor, maxS);
-    //appendDoubleAndTrunc(&mCurrInVec, values.current_in, maxS);
-    //appendDoubleAndTrunc(&mCurrMotorVec, values.current_motor, maxS);
-    //appendDoubleAndTrunc(&mIdVec, values.id, maxS);
-    //appendDoubleAndTrunc(&mIqVec, values.iq, maxS);
-    //appendDoubleAndTrunc(&mDutyVec, values.duty_now, maxS);
-    //appendDoubleAndTrunc(&mRpmVec, values.rpm, maxS);
+    appendDoubleAndTrunc(&mPackVoltage, values.packVoltage, maxS);
+    appendDoubleAndTrunc(&mLCLoadVoltage, values.loadLCVoltage, maxS);
+    appendDoubleAndTrunc(&mLCLoadCurrent, values.loadLCCurrent, maxS);
+    appendDoubleAndTrunc(&mHCLoadVoltage, values.loadHCVoltage, maxS);
+    appendDoubleAndTrunc(&mHCLoadCurrent, values.loadHCCurrent, maxS);
+    appendDoubleAndTrunc(&mAuxVoltage, values.auxVoltage, maxS);
+    appendDoubleAndTrunc(&mAuxCurrent, values.auxCurrent, maxS);
+
+    appendDoubleAndTrunc(&mCellVHigh, values.cVHigh, maxS);
+    appendDoubleAndTrunc(&mCellVAverage, values.cVAverage, maxS);
+    appendDoubleAndTrunc(&mCellVLow, values.cVLow, maxS);
+
+    appendDoubleAndTrunc(&mTempBMSHigh, values.tempBMSHigh, maxS);
+    appendDoubleAndTrunc(&mTempBMSAverage, values.tempBMSAverage, maxS);
+    appendDoubleAndTrunc(&mTempBattHigh, values.tempBattHigh, maxS);
+    appendDoubleAndTrunc(&mTempBattAverage, values.tempBattAverage, maxS);
+
 
     qint64 tNow = QDateTime::currentMSecsSinceEpoch();
 
@@ -250,13 +275,36 @@ void PageRtData::valuesReceived(BMS_VALUES values)
         elapsed = 1.0;
     }
 
-    //mSecondCounter += elapsed;
+    mSecondCounter += elapsed;
 
-    //appendDoubleAndTrunc(&mSeconds, mSecondCounter, maxS);
+    appendDoubleAndTrunc(&mSeconds, mSecondCounter, maxS);
 
-    //mLastUpdateTime = tNow;
+    mLastUpdateTime = tNow;
 
-    //mUpdateValPlot = true;
+    mUpdateValPlot = true;
+}
+
+void PageRtData::cellsReceived(int cellCount, QVector<double> cellVoltageArray){
+    QVector<double> dataxNew;
+    dataxNew.clear();
+    QVector<double> datayNew;
+    datayNew.clear();
+    QVector<QString> labels;
+    int indexPointer;
+
+    for(indexPointer = 0; indexPointer < cellCount; indexPointer++){
+        dataxNew.append(indexPointer + 1);
+        datayNew.append(fabs(cellVoltageArray[indexPointer]));
+        QString voltageString = QStringLiteral("%1V (C").arg(cellVoltageArray[indexPointer], 0, 'f',3);
+        labels.append(voltageString + QString::number(indexPointer) + ")");
+    }
+
+    QSharedPointer<QCPAxisTickerText> textTicker(new QCPAxisTickerText);
+    textTicker->addTicks(dataxNew, labels);
+
+    ui->cellBarGraph->xAxis->setTicker(textTicker);
+    ui->cellBarGraph->xAxis->setRange(0.5, indexPointer + 0.5);
+    bars->setData(dataxNew, datayNew);
 }
 
 void PageRtData::appendDoubleAndTrunc(QVector<double> *vec, double num, int maxSize)
@@ -274,11 +322,10 @@ void PageRtData::updateZoom()
             ((ui->zoomHButton->isChecked() ? Qt::Horizontal : 0) |
              (ui->zoomVButton->isChecked() ? Qt::Vertical : 0));
 
-    ui->currentPlot->axisRect()->setRangeZoom(plotOrientations);
-    ui->tempPlot->axisRect()->setRangeZoom(plotOrientations);
-    ui->rpmPlot->axisRect()->setRangeZoom(plotOrientations);
-    ui->focPlot->axisRect()->setRangeZoom(plotOrientations);
-    ui->posPlot->axisRect()->setRangeZoom(plotOrientations);
+    ui->ivLCGraph->axisRect()->setRangeZoom(plotOrientations);
+    ui->ivHCGraph->axisRect()->setRangeZoom(plotOrientations);
+    ui->cellGraph->axisRect()->setRangeZoom(plotOrientations);
+    ui->tempGraph->axisRect()->setRangeZoom(plotOrientations);
 }
 
 void PageRtData::on_zoomHButton_toggled(bool checked)
@@ -295,25 +342,25 @@ void PageRtData::on_zoomVButton_toggled(bool checked)
 
 void PageRtData::on_rescaleButton_clicked()
 {
-    ui->currentPlot->rescaleAxes();
-    ui->tempPlot->rescaleAxes();
-    ui->rpmPlot->rescaleAxes();
-    ui->focPlot->rescaleAxes();
-    ui->posPlot->rescaleAxes();
+    ui->ivLCGraph->rescaleAxes();
+    ui->ivHCGraph->rescaleAxes();
+    ui->cellGraph->rescaleAxes();
+    ui->tempGraph->rescaleAxes();
 
-    ui->currentPlot->replot();
-    ui->tempPlot->replot();
-    ui->rpmPlot->replot();
-    ui->focPlot->replot();
-    ui->posPlot->replot();
+    ui->ivLCGraph->replot();
+    ui->ivHCGraph->replot();
+    ui->cellGraph->replot();
+    ui->tempGraph->replot();
 }
 
-void PageRtData::on_tempShowMosfetBox_toggled(bool checked)
+void PageRtData::on_tempShowBMSBox_toggled(bool checked)
 {
-    ui->tempPlot->graph(0)->setVisible(checked);
+    ui->tempGraph->graph(0)->setVisible(checked);
+    ui->tempGraph->graph(1)->setVisible(checked);
 }
 
-void PageRtData::on_tempShowMotorBox_toggled(bool checked)
+void PageRtData::on_tempShowBatteryBox_toggled(bool checked)
 {
-    ui->tempPlot->graph(1)->setVisible(checked);
+    ui->tempGraph->graph(2)->setVisible(checked);
+    ui->tempGraph->graph(3)->setVisible(checked);
 }
