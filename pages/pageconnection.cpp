@@ -22,6 +22,7 @@
 #include "widgets/helpdialog.h"
 #include "utility.h"
 #include <QMessageBox>
+#include <QSettings>
 
 PageConnection::PageConnection(QWidget *parent) :
     QWidget(parent),
@@ -29,6 +30,15 @@ PageConnection::PageConnection(QWidget *parent) :
 {
     ui->setupUi(this);
     layout()->setContentsMargins(0, 0, 0, 0);
+
+    QString lastTcpServer =
+        QSettings().value("tcp_server", ui->tcpServerEdit->text()).toString();
+    ui->tcpServerEdit->setText(lastTcpServer);
+
+    int lastTcpPort =
+        QSettings().value("tcp_port", ui->tcpPortBox->value()).toInt();
+    ui->tcpPortBox->setValue(lastTcpPort);
+
     mDieBieMS = 0;
     mTimer = new QTimer(this);
 
@@ -53,6 +63,22 @@ void PageConnection::setDieBieMS(BMSInterface *dieBieMS)
     mDieBieMS = dieBieMS;
 
     connect(mDieBieMS->bleDevice(), SIGNAL(scanDone(QVariantMap,bool)),this, SLOT(bleScanDone(QVariantMap,bool)));
+
+    QString lastBleAddr = QSettings().value("ble_addr").toString();
+    if (lastBleAddr != "") {
+        QString setName = mDieBieMS->getBleName(lastBleAddr);
+
+        QString name;
+        if (!setName.isEmpty()) {
+            name += setName;
+            name += " [";
+            name += lastBleAddr;
+            name += "]";
+        } else {
+            name = lastBleAddr;
+        }
+        ui->bleDevBox->insertItem(0, name, lastBleAddr);
+    }
 
     on_serialRefreshButton_clicked();
 }
@@ -84,20 +110,31 @@ void PageConnection::bleScanDone(QVariantMap devs, bool done)
 
     ui->bleDevBox->clear();
     for (auto d: devs.keys()) {
-        if (d.contains("VESC")) {
+        QString devName = devs.value(d).toString();
+        QString addr = d;
+        QString setName = mDieBieMS->getBleName(addr);
+
+        if (!setName.isEmpty()) {
             QString name;
-            name += d;
+            name += setName;
             name += " [";
-            name += devs.value(d).toString();
+            name += addr;
             name += "]";
-            ui->bleDevBox->insertItem(0, name, devs.value(d).toString());
+            ui->bleDevBox->insertItem(0, name, addr);
+        } else if (devName.contains("VESC") || devName.contains("Metr Pro")) {
+            QString name;
+            name += devName;
+            name += " [";
+            name += addr;
+            name += "]";
+            ui->bleDevBox->insertItem(0, name, addr);
         } else {
             QString name;
-            name += d;
+            name += devName;
             name += " [";
-            name += devs.value(d).toString();
+            name += addr;
             name += "]";
-            ui->bleDevBox->addItem(name, devs.value(d).toString());
+            ui->bleDevBox->addItem(name, addr);
         }
     }
     ui->bleDevBox->setCurrentIndex(0);
@@ -140,7 +177,11 @@ void PageConnection::on_tcpDisconnectButton_clicked()
 void PageConnection::on_tcpConnectButton_clicked()
 {
     if (mDieBieMS) {
-        mDieBieMS->connectTcp(ui->tcpServerEdit->text(), ui->tcpPortBox->value());
+        QString tcpServer = ui->tcpServerEdit->text();
+        int tcpPort = ui->tcpPortBox->value();
+        mDieBieMS->connectTcp(tcpServer, tcpPort);
+        QSettings().setValue("tcp_server", tcpServer);
+        QSettings().setValue("tcp_port", tcpPort);
     }
 }
 
@@ -189,7 +230,9 @@ void PageConnection::on_bleConnectButton_clicked()
 {
     if (mDieBieMS) {
         if (ui->bleDevBox->count() > 0) {
-            mDieBieMS->connectBle(ui->bleDevBox->currentData().toString());
+            QString bleAddr = ui->bleDevBox->currentData().toString();
+            mDieBieMS->connectBle(bleAddr);
+            QSettings().setValue("ble_addr", bleAddr);
         }
     }
 }

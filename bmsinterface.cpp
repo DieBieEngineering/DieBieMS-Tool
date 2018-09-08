@@ -23,6 +23,7 @@
 #include <QFileInfo>
 #include <QThread>
 #include <QEventLoop>
+#include <QSettings>
 #include <utility.h>
 
 #ifdef HAS_SERIALPORT
@@ -47,7 +48,8 @@ BMSInterface::BMSInterface(QObject *parent) : QObject(parent)
     mTimer->setInterval(20);
     mTimer->start();
 
-    mLastConnType = CONN_NONE;
+    mLastConnType = static_cast<conn_t>(QSettings().value("connection_type", CONN_NONE).toInt());
+
     mSendCanBefore = false;
     mCanIdBefore = 0;
     mWasConnected = false;
@@ -67,8 +69,8 @@ BMSInterface::BMSInterface(QObject *parent) : QObject(parent)
     // TCP
     mTcpSocket = new QTcpSocket(this);
     mTcpConnected = false;
-    mLastTcpServer = "";
-    mLastTcpPort = 0;
+    mLastTcpServer = QSettings().value("tcp_server").toString();
+    mLastTcpPort = QSettings().value("tcp_port").toInt();
 
     connect(mTcpSocket, SIGNAL(readyRead()), this, SLOT(tcpInputDataAvailable()));
     connect(mTcpSocket, SIGNAL(connected()), this, SLOT(tcpInputConnected()));
@@ -77,6 +79,16 @@ BMSInterface::BMSInterface(QObject *parent) : QObject(parent)
 
     // BLE
     mBleUart = new BleUart(this);
+    mLastBleAddr = QSettings().value("ble_addr").toString();
+
+    int size = mSettings.beginReadArray("bleNames");
+    for (int i = 0; i < size; ++i) {
+        mSettings.setArrayIndex(i);
+        QString address = mSettings.value("address").toString();
+        QString name = mSettings.value("name").toString();
+        mBleNames.insert(address, name);
+    }
+    mSettings.endArray();
 
     connect(mBleUart, SIGNAL(dataRx(QByteArray)), this, SLOT(bleDataRx(QByteArray)));
 
@@ -91,6 +103,23 @@ BMSInterface::BMSInterface(QObject *parent) : QObject(parent)
     connect(mCommands, SIGNAL(ackReceived(QString)), this, SLOT(ackReceived(QString)));
     connect(mbmsConfig, SIGNAL(updated()), this, SLOT(bmsconfUpdated()));
     connect(mbmsConfig, SIGNAL(stored()), this, SLOT(bmsconfStored()));
+}
+
+BMSInterface::~BMSInterface()
+{
+    mSettings.beginWriteArray("bleNames");
+
+    QHashIterator<QString, QString> i(mBleNames);
+    int ind = 0;
+    while (i.hasNext()) {
+        i.next();
+        mSettings.setArrayIndex(ind);
+        mSettings.setValue("address", i.key());
+        mSettings.setValue("name", i.value());
+        ind++;
+    }
+
+    mSettings.endArray();
 }
 
 Commands *BMSInterface::commands() const
@@ -163,6 +192,20 @@ bool BMSInterface::fwRx()
 BleUart *BMSInterface::bleDevice()
 {
     return mBleUart;
+}
+
+void BMSInterface::storeBleName(QString address, QString name)
+{
+    mBleNames.insert(address, name);
+}
+
+QString BMSInterface::getBleName(QString address)
+{
+    QString res;
+    if(mBleNames.contains(address)) {
+        res = mBleNames[address];
+    }
+    return res;
 }
 
 bool BMSInterface::isPortConnected()
@@ -324,7 +367,7 @@ bool BMSInterface::connectSerial(QString port, int baudrate)
 #ifdef HAS_SERIALPORT
     mLastSerialPort = port;
     mLastSerialBaud = baudrate;
-    mLastConnType = CONN_SERIAL;
+    setLastConnectionType(CONN_SERIAL);
 
     bool found = false;
     for (VSerialInfo_t ser: listSerialPorts()) {
@@ -419,7 +462,7 @@ void BMSInterface::connectTcp(QString server, int port)
 {
     mLastTcpServer = server;
     mLastTcpPort = port;
-    mLastConnType = CONN_TCP;
+    setLastConnectionType(CONN_TCP);
 
     QHostAddress host;
     host.setAddress(server);
@@ -442,6 +485,7 @@ void BMSInterface::connectBle(QString address)
     mBleUart->startConnect(address);
     mLastConnType = CONN_BLE;
     mLastBleAddr = address;
+    setLastConnectionType(CONN_BLE);
 }
 
 bool BMSInterface::isAutoconnectOngoing() const
@@ -730,4 +774,10 @@ void BMSInterface::updateFwRx(bool fwRx)
     if (change) {
         emit fwRxChanged(mFwVersionReceived, mCommands->isLimitedMode());
     }
+}
+
+void BMSInterface::setLastConnectionType(conn_t type)
+{
+    mLastConnType = type;
+    QSettings().setValue("connection_type", type);
 }
