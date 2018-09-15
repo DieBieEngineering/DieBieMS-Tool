@@ -27,6 +27,8 @@
 #include <QByteArray>
 #include <QList>
 #include <QTcpSocket>
+#include <QSettings>
+#include <QHash>
 
 #ifdef HAS_SERIALPORT
 #include <QSerialPort>
@@ -43,6 +45,7 @@ class BMSInterface : public QObject
     Q_OBJECT
 public:
     explicit BMSInterface(QObject *parent = 0);
+    ~BMSInterface();
     Q_INVOKABLE Commands *commands() const;
     Q_INVOKABLE ConfigParams *bmsConfig();
     Q_INVOKABLE ConfigParams *infoConfig();
@@ -53,6 +56,8 @@ public:
     Q_INVOKABLE void emitMessageDialog(const QString &title, const QString &msg, bool isGood, bool richText = false);
     Q_INVOKABLE bool fwRx();
     Q_INVOKABLE BleUart* bleDevice();
+    Q_INVOKABLE void storeBleName(QString address, QString name);
+    Q_INVOKABLE QString getBleName(QString address);
 
     // Connection
     Q_INVOKABLE bool isPortConnected();
@@ -109,6 +114,9 @@ private:
         CONN_BLE
     } conn_t;
 
+    QSettings mSettings;
+    QHash<QString, QString> mBleNames;
+
     ConfigParams *mbmsConfig;
     ConfigParams *mInfoConfig;
 
@@ -146,6 +154,7 @@ private:
     double mAutoconnectProgress;
 
     void updateFwRx(bool fwRx);
+    void setLastConnectionType(conn_t type);
 
 };
 
