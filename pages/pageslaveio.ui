@@ -15,7 +15,34 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="ParamTable" name="slaveIOTab"/>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="tabShape">
+      <enum>QTabWidget::Triangular</enum>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tabIOAUX">
+      <attribute name="title">
+       <string>AUX</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="ParamTable" name="slaveIOTabAUX"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabIOOpto">
+      <attribute name="title">
+       <string>Opto</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="ParamTable" name="slaveIOTabOpto"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </item>
   </layout>
  </widget>

@@ -1,21 +1,23 @@
 /*
-    Copyright 2016 - 2017 Benjamin Vedder	benjamin@vedder.se
+    Original copyright 2018 Benjamin Vedder benjamin@vedder.se and the VESC Tool project ( https://github.com/vedderb/vesc_tool )
+    Now forked to:
+    Danny Bokma github@diebie.nl
 
-    This file is part of VESC Tool.
+    This file is part of BMS Tool.
 
-    VESC Tool is free software: you can redistribute it and/or modify
+    DieBieMS Tool is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    VESC Tool is distributed in the hope that it will be useful,
+    DieBieMS Tool is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-    */
+*/
 
 #include "pagertdata.h"
 
@@ -156,12 +158,20 @@ PageRtData::PageRtData(QWidget *parent) :
 
     // Cell bar graph
     group = new QCPBarsGroup(ui->cellBarGraph);
-    bars = new QCPBars(ui->cellBarGraph->xAxis, ui->cellBarGraph->yAxis);
+    barsNormal = new QCPBars(ui->cellBarGraph->xAxis, ui->cellBarGraph->yAxis);
+    barsBalance = new QCPBars(ui->cellBarGraph->xAxis, ui->cellBarGraph->yAxis);
 
-    bars->setBrush(QColor(0, 255, 0, 50));
-    bars->setPen(QColor(0, 211, 56));
-    bars->setWidth(0.9);
-    bars->setBarsGroup(group);
+    barsNormal->setBrush(QColor(0, 255, 0, 50));
+    barsNormal->setPen(QColor(0, 211, 56));
+    barsNormal->setWidth(0.9);
+    barsNormal->setBarsGroup(group);
+
+    barsBalance->setBrush(QColor(0, 0, 255, 50));
+    barsBalance->setPen(QColor(0, 211, 56));
+    barsBalance->setWidth(0.9);
+    barsBalance->setBarsGroup(group);
+
+    barsBalance->moveAbove(barsNormal);
 
     ui->cellBarGraph->xAxis->setRange(0.5, 12);
     ui->cellBarGraph->yAxis->setRange(2.5, 4.15);
@@ -171,9 +181,6 @@ PageRtData::PageRtData(QWidget *parent) :
     ui->cellBarGraph->xAxis->setTickLength(0, 5);
 
     connect(mTimer, SIGNAL(timeout()),this, SLOT(timerSlot()));
-}
-
-void PageRtData::updateBarGraph(void) {
 }
 
 PageRtData::~PageRtData()
@@ -287,15 +294,28 @@ void PageRtData::valuesReceived(BMS_VALUES values)
 void PageRtData::cellsReceived(int cellCount, QVector<double> cellVoltageArray){
     QVector<double> dataxNew;
     dataxNew.clear();
-    QVector<double> datayNew;
-    datayNew.clear();
+    QVector<double> datayNormal;
+    datayNormal.clear();
+    QVector<double> datayBalance;
+    datayBalance.clear();
     QVector<QString> labels;
     int indexPointer;
 
+    double cellHardUnder = mDieBieMS->bmsConfig()->getParamDouble("cellHardUnderVoltage");
+    double cellHardOver  = mDieBieMS->bmsConfig()->getParamDouble("cellHardOverVoltage");
+
     for(indexPointer = 0; indexPointer < cellCount; indexPointer++){
         dataxNew.append(indexPointer + 1);
-        datayNew.append(fabs(cellVoltageArray[indexPointer]));
-        QString voltageString = QStringLiteral("%1V (C").arg(cellVoltageArray[indexPointer], 0, 'f',3);
+
+        if(cellVoltageArray[indexPointer] < 0.0){
+            datayNormal.append(0.0);
+            datayBalance.append(fabs(cellVoltageArray[indexPointer]));
+        }else{
+            datayNormal.append(fabs(cellVoltageArray[indexPointer]));
+            datayBalance.append(0.0);
+        }
+
+        QString voltageString = QStringLiteral("%1V (C").arg(fabs(cellVoltageArray[indexPointer]), 0, 'f',3);
         labels.append(voltageString + QString::number(indexPointer) + ")");
     }
 
@@ -304,7 +324,9 @@ void PageRtData::cellsReceived(int cellCount, QVector<double> cellVoltageArray){
 
     ui->cellBarGraph->xAxis->setTicker(textTicker);
     ui->cellBarGraph->xAxis->setRange(0.5, indexPointer + 0.5);
-    bars->setData(dataxNew, datayNew);
+    ui->cellBarGraph->yAxis->setRange(cellHardUnder, cellHardOver);
+    barsNormal->setData(dataxNew, datayNormal);
+    barsBalance->setData(dataxNew, datayBalance);
 }
 
 void PageRtData::appendDoubleAndTrunc(QVector<double> *vec, double num, int maxSize)
