@@ -21,11 +21,12 @@
 
 #include "commands.h"
 #include <QDebug>
+#include <QSettings>
 
 Commands::Commands(QObject *parent) : QObject(parent)
 {
-    mSendCan = false;
-    mCanId = 0;
+    mSendCan = QSettings().value("send_can", false).toBool();
+    mCanId = QSettings().value("can_id", 0).toInt();
     mIsLimitedMode = false;
 
     // Firmware state
@@ -65,9 +66,10 @@ bool Commands::isLimitedMode()
 void Commands::setSendCan(bool sendCan, int id)
 {
     mSendCan = sendCan;
+    QSettings().setValue("send_can", sendCan);
 
     if (id >= 0) {
-        mCanId = id;
+        setCanSendId(id);
     }
 }
 
@@ -79,6 +81,7 @@ bool Commands::getSendCan()
 void Commands::setCanSendId(unsigned int id)
 {
     mCanId = id;
+    QSettings().setValue("can_id", id);
 }
 
 int Commands::getCanSendId()
