@@ -49,8 +49,7 @@ QObject *QmlUi::BMSInterface_singletontype_provider(QQmlEngine *engine, QJSEngin
 
     BMSInterface *vesc = new BMSInterface();
 
-    vesc->bmsConfig()->loadParamsXml("://res/parameters_bmsconfig.xml");
-    //vesc->appConfig()->loadParamsXml("://res/parameters_appconf.xml");
+    vesc->bmsConfig()->loadParamsXml("://res/config.xml");
     vesc->infoConfig()->loadParamsXml("://res/info.xml");
 
     return vesc;

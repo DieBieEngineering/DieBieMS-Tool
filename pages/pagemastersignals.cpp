@@ -19,38 +19,32 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "pageslaveio.h"
-#include "ui_pageslaveio.h"
+#include "pagemastersignals.h"
+#include "ui_pagemastersignals.h"
 
-PageSlaveIO::PageSlaveIO(QWidget *parent) :
+PageMasterSignals::PageMasterSignals(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::PageSlaveIO)
+    ui(new Ui::PageMasterSignals)
 {
     ui->setupUi(this);
     mDieBieMS = 0;
 }
 
-PageSlaveIO::~PageSlaveIO()
+PageMasterSignals::~PageMasterSignals()
 {
     delete ui;
 }
 
-BMSInterface *PageSlaveIO::bms() const {
+BMSInterface *PageMasterSignals::bms() const
+{
     return mDieBieMS;
 }
 
-void PageSlaveIO::setDieBieMS(BMSInterface *dieBieMS) {
+void PageMasterSignals::setDieBieMS(BMSInterface *dieBieMS)
+{
     mDieBieMS = dieBieMS;
 
-    if (mDieBieMS) {       
-        ui->slaveIOTabAUX->addRowSeparator(tr("AUX0"));
-        ui->slaveIOTabAUX->addParamRow(mDieBieMS->bmsConfig(), "AUX0SignalSource");
-        ui->slaveIOTabAUX->addParamRow(mDieBieMS->bmsConfig(), "AUX0TurnOnDelay");
-        ui->slaveIOTabAUX->addParamRow(mDieBieMS->bmsConfig(), "AUX0TurnOffDelay");
+    if (mDieBieMS) {
 
-        ui->slaveIOTabAUX->addRowSeparator(tr("AUX1"));
-        ui->slaveIOTabAUX->addParamRow(mDieBieMS->bmsConfig(), "AUX1SignalSource");
-        ui->slaveIOTabAUX->addParamRow(mDieBieMS->bmsConfig(), "AUX1TurnOnDelay");
-        ui->slaveIOTabAUX->addParamRow(mDieBieMS->bmsConfig(), "AUX1TurnOffDelay");
     }
 }

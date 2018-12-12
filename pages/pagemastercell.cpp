@@ -45,6 +45,7 @@ void PageMasterCell::setDieBieMS(BMSInterface *dieBieMS)
     mDieBieMS = dieBieMS;
 
     if (mDieBieMS) {
+        ui->specificationsTab->addParamRow(mDieBieMS->bmsConfig(), "cellTechnology");
         ui->specificationsTab->addParamRow(mDieBieMS->bmsConfig(), "noOfCells");
         ui->specificationsTab->addParamRow(mDieBieMS->bmsConfig(), "batteryCapacity");
         ui->specificationsTab->addParamRow(mDieBieMS->bmsConfig(), "cellHardUnderVoltage");

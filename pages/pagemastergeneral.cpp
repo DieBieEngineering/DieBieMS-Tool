@@ -48,14 +48,20 @@ void PageMasterGeneral::setDieBieMS(BMSInterface *dieBieMS)
         ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "pulseToggleButton");
         ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "notUsedCurrentThreshold");
         ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "notUsedTimeout");
+        ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "powerDownDelay");
+        ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "extEnableState");
         ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "allowForceOn");
 
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "CANID");
+        ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "CANBaudRate");
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "CANIDStyle");
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "emitStatusOverCAN");
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "useCANSafetyInput");
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "useCANDelayedPowerDown");
 
+        ui->masterSensorsTab->addRowSeparator(tr("Monitor IC"));
+        ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "cellMonitorICType");
+        ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "cellMonitorICCount");
         ui->masterSensorsTab->addRowSeparator(tr("Shunt"));
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntLCFactor");
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntLCOffset");

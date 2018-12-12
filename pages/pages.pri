@@ -17,7 +17,8 @@ FORMS += \
     $$PWD/pageslavegeneral.ui \
     $$PWD/pageslaveswitch.ui \
     $$PWD/pageslaveio.ui \
-    $$PWD/pageslavefan.ui
+    $$PWD/pageslavefan.ui \
+    $$PWD/pagemastersignals.ui
 
 HEADERS += \
     $$PWD/pageconnection.h \
@@ -38,7 +39,8 @@ HEADERS += \
     $$PWD/pageslavegeneral.h \
     $$PWD/pageslaveswitch.h \
     $$PWD/pageslaveio.h \
-    $$PWD/pageslavefan.h
+    $$PWD/pageslavefan.h \
+    $$PWD/pagemastersignals.h
 
 SOURCES += \
     $$PWD/pageconnection.cpp \
@@ -59,4 +61,5 @@ SOURCES += \
     $$PWD/pageslavegeneral.cpp \
     $$PWD/pageslaveswitch.cpp \
     $$PWD/pageslaveio.cpp \
-    $$PWD/pageslavefan.cpp
+    $$PWD/pageslavefan.cpp \
+    $$PWD/pagemastersignals.cpp

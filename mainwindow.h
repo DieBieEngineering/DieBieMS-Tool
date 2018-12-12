@@ -55,6 +55,7 @@
 #include "pages/pagemastergeneral.h"
 #include "pages/pagemasterswitch.h"
 #include "pages/pagemastercell.h"
+#include "pages/pagemastersignals.h"
 #include "pages/pagemasterdisplay.h"
 #include "pages/pageslavesettings.h"
 #include "pages/pageslavegeneral.h"
@@ -139,13 +140,13 @@ private:
     PageMasterGeneral *mPageMasterGeneral;
     PageMasterSwitch *mPageMasterSwitch;
     PageMasterCell *mPageMasterCell;
+    PageMasterSignals *mPageMasterSignals;
     PageMasterDisplay *mPageMasterDisplay;
     PageSlaveSettings *mSlaveSettings;
     PageSlaveGeneral *mPageSlaveGeneral;
     PageSlaveSwitch *mPageSlaveSwitch;
     PageSlaveIO *mPageSlaveIO;
     PageSlaveFAN *mPageSlaveFANs;
-
     PageSettings *mPageSettings;
 
 

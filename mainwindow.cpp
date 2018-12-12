@@ -89,7 +89,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Remove the menu with the option to hide the toolbar
     ui->mainToolBar->setContextMenuPolicy(Qt::PreventContextMenu);
 
-    mDieBieMS->bmsConfig()->loadParamsXml("://res/parameters_bmsconfig.xml");
+    mDieBieMS->bmsConfig()->loadParamsXml("://res/config.xml");
     mDieBieMS->infoConfig()->loadParamsXml("://res/info.xml");
     reloadPages();
 
@@ -522,6 +522,11 @@ void MainWindow::reloadPages()
     mPageMasterSwitch->setDieBieMS(mDieBieMS);
     ui->pageWidget->addWidget(mPageMasterSwitch);
     addPageItem(tr("Switch"), "://res/icons/Toggle Off-96_2.png","", false, true);
+
+    mPageMasterSignals = new PageMasterSignals(this);
+    mPageMasterSignals->setDieBieMS(mDieBieMS);
+    ui->pageWidget->addWidget(mPageMasterSignals);
+    addPageItem(tr("Signals"), "://res/icons/bldc.png","", false, true);
 
     mPageMasterDisplay = new PageMasterDisplay(this);
     mPageMasterDisplay->setDieBieMS(mDieBieMS);

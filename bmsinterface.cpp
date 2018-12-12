@@ -689,14 +689,13 @@ void BMSInterface::fwVersionReceived(int major, int minor, QString hw, QByteArra
         updateFwRx(false);
         mFwRetries = 0;
         disconnectPort();
-        emit messageDialog(tr("Error"), tr("The firmware on the connected DieBieMS is too old. Please"
-                                           " update it using a programmer."), false, false);
+        emit messageDialog(tr("Error"), tr("The firmware on the connected DieBieMS is too old. Please update it using a programmer."), false, false);
     } else if (fw_connected > highest_supported) {
         mCommands->setLimitedMode(true);
         updateFwRx(true);
         if (!wasReceived) {
-            emit messageDialog(tr("Warning"), tr("The connected DieBieMS has newer firmware than this version of"
-                                                " DieBieMS Tool supports. It is recommended that you update DieBieMS "
+            emit messageDialog(tr("Warning"), tr("The connected DieBieMS has newer firmware than this version of the"
+                                                " DieBieMS Tool supports. It is recommended that you update the DieBieMS"
                                                 " Tool to the latest version. Alternatively, the firmware on"
                                                 " the connected DieBieMS can be downgraded in the firmware page."
                                                 " Until then, limited communication mode will be used where"
