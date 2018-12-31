@@ -336,7 +336,7 @@
      <normaloff>:/res/icons/Horizontal Settings Mixer-96.png</normaloff>:/res/icons/Horizontal Settings Mixer-96.png</iconset>
    </property>
    <property name="text">
-    <string>Parameter Editor BMScconf</string>
+    <string>Parameter Editor Config</string>
    </property>
   </action>
   <action name="actionSaveBMSConfigurationHeader">

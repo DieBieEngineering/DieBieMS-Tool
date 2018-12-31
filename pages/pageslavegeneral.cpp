@@ -46,12 +46,16 @@ void PageSlaveGeneral::setDieBieMS(BMSInterface *dieBieMS) {
         ui->slaveSensorsTab->addRowSeparator(tr("Shunt"));
         ui->slaveSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntHCFactor");
         ui->slaveSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntHCOffset");
-        ui->slaveSensorsTab->addRowSeparator(tr("NTC specifications"));
+        ui->slaveSensorsTab->addRowSeparator(tr("NTC's local"));
         ui->slaveSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCHiAmpPCBTopResistor");
         ui->slaveSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCHiAmpPCB25Deg");
         ui->slaveSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCHiAmpPCBBeta");
         ui->slaveSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCHiAmpExtTopResistor");
         ui->slaveSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCHiAmpExt25Deg");
         ui->slaveSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCHiAmpExtBeta");
+        ui->slaveSensorsTab->addRowSeparator(tr("NTC Aux"));
+        ui->slaveSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCHiAmpAUXTopResistor");
+        ui->slaveSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCHiAmpAUX25Deg");
+        ui->slaveSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCHiAmpAUXBeta");
     }
 }

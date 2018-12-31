@@ -45,29 +45,43 @@ void PageMasterGeneral::setDieBieMS(BMSInterface *dieBieMS)
     mDieBieMS = dieBieMS;
 
     if (mDieBieMS) {
+        ui->powerStateTab->addRowSeparator(tr("Onstate"));
         ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "pulseToggleButton");
         ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "notUsedCurrentThreshold");
         ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "notUsedTimeout");
         ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "powerDownDelay");
-        ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "extEnableState");
         ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "allowForceOn");
+        ui->powerStateTab->addRowSeparator(tr("Jump to"));
+        ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "extEnableState");
+        ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "chargeEnableState");
+        ui->powerStateTab->addRowSeparator(tr("DCDC Converter"));
+        ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "DCDCEnableInverted");
 
+        ui->masterLimitsTab->addRowSeparator(tr("Current"));
+        ui->masterLimitsTab->addParamRow(mDieBieMS->bmsConfig(), "maxAllowedCurrent");
+        ui->masterLimitsTab->addRowSeparator(tr("Temperature"));
+        ui->masterLimitsTab->addParamRow(mDieBieMS->bmsConfig(), "allowedTempBattDischargingMax");
+        ui->masterLimitsTab->addParamRow(mDieBieMS->bmsConfig(), "allowedTempBattDischargingMin");
+        ui->masterLimitsTab->addParamRow(mDieBieMS->bmsConfig(), "allowedTempBattChargingMax");
+        ui->masterLimitsTab->addParamRow(mDieBieMS->bmsConfig(), "allowedTempBattChargingMin");
+        ui->masterLimitsTab->addParamRow(mDieBieMS->bmsConfig(), "allowedTempBMSMax");
+        ui->masterLimitsTab->addParamRow(mDieBieMS->bmsConfig(), "allowedTempBMSMin");
+
+        ui->canTab->addRowSeparator(tr("CAN Configuration"));
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "CANID");
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "CANBaudRate");
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "CANIDStyle");
+        ui->canTab->addRowSeparator(tr("CAN Messaging"));
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "emitStatusOverCAN");
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "useCANSafetyInput");
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "useCANDelayedPowerDown");
 
-        ui->masterSensorsTab->addRowSeparator(tr("Monitor IC"));
+        ui->masterSensorsTab->addRowSeparator(tr("Celvoltage monitor"));
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "cellMonitorICType");
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "cellMonitorICCount");
         ui->masterSensorsTab->addRowSeparator(tr("Shunt"));
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntLCFactor");
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntLCOffset");
-        ui->masterSensorsTab->addRowSeparator(tr("NTC enable mask"));
-        ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "tempEnableMaskBMS");
-        ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "tempEnableMaskBattery");
         ui->masterSensorsTab->addRowSeparator(tr("NTC specifications"));
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCPCBTopResistor");
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCPCB25Deg");
@@ -75,5 +89,10 @@ void PageMasterGeneral::setDieBieMS(BMSInterface *dieBieMS)
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCLTCTopResistor");
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCLTC25Deg");
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCLTCBeta");
+        ui->masterSensorsTab->addRowSeparator(tr("NTC enable mask"));
+        ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "tempEnableMaskBMS");
+        ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "tempEnableMaskBattery");
+        ui->masterSensorsTab->addRowSeparator(tr("Water detect enable mask"));
+        ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "waterSensorEnableMask");
     }
 }

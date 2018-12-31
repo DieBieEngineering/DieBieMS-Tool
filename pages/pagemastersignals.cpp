@@ -45,6 +45,7 @@ void PageMasterSignals::setDieBieMS(BMSInterface *dieBieMS)
     mDieBieMS = dieBieMS;
 
     if (mDieBieMS) {
-
+        ui->signalsTab->addRowSeparator(tr("Current sensing"));
+        ui->signalsTab->addParamRow(mDieBieMS->bmsConfig(), "packCurrentDataSource");
     }
 }

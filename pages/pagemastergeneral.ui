@@ -32,6 +32,16 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="Limits">
+      <attribute name="title">
+       <string>Limits</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="ParamTable" name="masterLimitsTab"/>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="CAN">
       <attribute name="title">
        <string>CAN</string>

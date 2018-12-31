@@ -45,13 +45,14 @@ void PageMasterSwitch::setDieBieMS(BMSInterface *dieBieMS)
     mDieBieMS = dieBieMS;
 
     if (mDieBieMS) {
+        ui->dischargeTab->addRowSeparator(tr("-"));
         ui->dischargeTab->addParamRow(mDieBieMS->bmsConfig(), "LCUseDischarge");
         ui->dischargeTab->addParamRow(mDieBieMS->bmsConfig(), "LCUsePrecharge");
         ui->dischargeTab->addParamRow(mDieBieMS->bmsConfig(), "minimalPrechargePercentage");
         ui->dischargeTab->addParamRow(mDieBieMS->bmsConfig(), "timeoutLCPreCharge");
         ui->dischargeTab->addParamRow(mDieBieMS->bmsConfig(), "timeoutDischargeRetry");        
-        ui->dischargeTab->addParamRow(mDieBieMS->bmsConfig(), "maxAllowedCurrent");
 
+        ui->chargeTab->addRowSeparator(tr("-"));
         ui->chargeTab->addParamRow(mDieBieMS->bmsConfig(), "chargerEnabledThreshold");
         ui->chargeTab->addParamRow(mDieBieMS->bmsConfig(), "timeoutChargerDisconnected");
         ui->chargeTab->addParamRow(mDieBieMS->bmsConfig(), "allowChargingDuringDischarge");

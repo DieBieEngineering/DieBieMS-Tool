@@ -45,9 +45,12 @@ void PageMasterCell::setDieBieMS(BMSInterface *dieBieMS)
     mDieBieMS = dieBieMS;
 
     if (mDieBieMS) {
-        ui->specificationsTab->addParamRow(mDieBieMS->bmsConfig(), "cellTechnology");
-        ui->specificationsTab->addParamRow(mDieBieMS->bmsConfig(), "noOfCells");
+        ui->specificationsTab->addRowSeparator(tr("Pack configuration"));
+        ui->specificationsTab->addParamRow(mDieBieMS->bmsConfig(), "noOfCellsSeries");
+        ui->specificationsTab->addParamRow(mDieBieMS->bmsConfig(), "noOfCellsParallel");
         ui->specificationsTab->addParamRow(mDieBieMS->bmsConfig(), "batteryCapacity");
+        ui->specificationsTab->addRowSeparator(tr("Cell specifications"));
+        ui->specificationsTab->addParamRow(mDieBieMS->bmsConfig(), "cellTechnology");
         ui->specificationsTab->addParamRow(mDieBieMS->bmsConfig(), "cellHardUnderVoltage");
         ui->specificationsTab->addParamRow(mDieBieMS->bmsConfig(), "cellHardOverVoltage");
         ui->specificationsTab->addParamRow(mDieBieMS->bmsConfig(), "cellLCSoftUnderVoltage");
@@ -57,6 +60,7 @@ void PageMasterCell::setDieBieMS(BMSInterface *dieBieMS)
         ui->specificationsTab->addParamRow(mDieBieMS->bmsConfig(), "hysteresisDischarge");
         ui->specificationsTab->addParamRow(mDieBieMS->bmsConfig(), "hysteresisCharge");
 
+        ui->balancingTab->addRowSeparator(tr("Balancing configuration"));
         ui->balancingTab->addParamRow(mDieBieMS->bmsConfig(), "cellBalanceStart");
         ui->balancingTab->addParamRow(mDieBieMS->bmsConfig(), "cellBalanceDifferenceThreshold");
         ui->balancingTab->addParamRow(mDieBieMS->bmsConfig(), "cellBalanceUpdateInterval");
@@ -71,11 +75,12 @@ void PageMasterCell::setDieBieMS(BMSInterface *dieBieMS)
         ui->throttlingTab->addParamRow(mDieBieMS->bmsConfig(), "cellThrottleUpperMargin");
         ui->throttlingTab->addParamRow(mDieBieMS->bmsConfig(), "throttleChargeIncreaseRate");
 
-        ui->socTab->addParamRow(mDieBieMS->bmsConfig(), "soCMethod");
+        ui->socTab->addRowSeparator(tr("SoC general"));
+        ui->socTab->addParamRow(mDieBieMS->bmsConfig(), "stateOfChargeMethod");
+        ui->socTab->addParamRow(mDieBieMS->bmsConfig(), "stateOfChargeStoreInterval");
         ui->socTab->addParamRow(mDieBieMS->bmsConfig(), "timeoutChargeCompleted");
         ui->socTab->addParamRow(mDieBieMS->bmsConfig(), "timeoutChargingCompletedMinimalMismatch");
         ui->socTab->addParamRow(mDieBieMS->bmsConfig(), "maxMismatchThreshold");
-        ui->socTab->addParamRow(mDieBieMS->bmsConfig(), "stateOfChargeStoreInterval");
     }
 }
 
