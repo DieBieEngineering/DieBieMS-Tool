@@ -39,7 +39,7 @@ p, li { white-space: pre-wrap; }
             <minInt>1</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>1</stepInt>
-            <valInt>16</valInt>
+            <valInt>4</valInt>
             <suffix></suffix>
             <vTx>1</vTx>
         </noOfCellsParallel>
@@ -60,7 +60,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>0</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>1</stepDouble>
-            <valDouble>40</valDouble>
+            <valDouble>15</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix>Ah</suffix>
             <vTx>9</vTx>
@@ -75,7 +75,7 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Cell&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;monitor&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;IC&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;type.&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;Set&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;to&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;LTC6803&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;for&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;DieBieMS,&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;set&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;to&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;LTC6803&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;for&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;EFoilBMSV1,&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;set&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;to&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;LTC6804&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;for&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;EFoilBMSV2&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;and&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;set&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;to&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;LTC6804&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;for&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;DieBieMSHV.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>CELL_MONITOR_IC_TYPE</cDefine>
-            <valInt>2</valInt>
+            <valInt>1</valInt>
             <enumNames>None</enumNames>
             <enumNames>LTC6803-2</enumNames>
             <enumNames>LTC6804-1</enumNames>
@@ -154,7 +154,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>0</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>0.05</stepDouble>
-            <valDouble>4.25</valDouble>
+            <valDouble>4.35</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix>V</suffix>
             <vTx>9</vTx>
@@ -176,7 +176,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>0</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>0.05</stepDouble>
-            <valDouble>2.9</valDouble>
+            <valDouble>2.7</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix>V</suffix>
             <vTx>9</vTx>
@@ -220,7 +220,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>0</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>0.05</stepDouble>
-            <valDouble>4.15</valDouble>
+            <valDouble>4.2</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix>V</suffix>
             <vTx>9</vTx>
@@ -242,7 +242,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>0</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>0.005</stepDouble>
-            <valDouble>0.005</valDouble>
+            <valDouble>0.01</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix>V</suffix>
             <vTx>9</vTx>
@@ -264,7 +264,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>0</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>0.1</stepDouble>
-            <valDouble>3.9</valDouble>
+            <valDouble>3.8</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix>V</suffix>
             <vTx>9</vTx>
@@ -288,7 +288,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>0</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>0.05</stepDouble>
-            <valDouble>0.02</valDouble>
+            <valDouble>0.03</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix>V</suffix>
             <vTx>9</vTx>
@@ -375,7 +375,7 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Cell&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;monitor&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;IC&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;type.&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;Set&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;to&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;LTC6803&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;for&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;DieBieMS,&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;set&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;to&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;LTC6803&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;for&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;EFoilBMSV1,&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;set&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;to&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;LTC6804&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;for&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;EFoilBMSV2&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;and&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;set&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;to&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;LTC6804&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;for&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;DieBieMSHV.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>CELL_MONITOR_IC_TYPE</cDefine>
-            <valInt>0</valInt>
+            <valInt>1</valInt>
             <enumNames>NoSource</enumNames>
             <enumNames>Low current shunt</enumNames>
             <enumNames>High current shunt</enumNames>
@@ -400,7 +400,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>-1</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>0.05</stepDouble>
-            <valDouble>0.05</valDouble>
+            <valDouble>-0.004494</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix></suffix>
             <vTx>9</vTx>
@@ -421,7 +421,7 @@ p, li { white-space: pre-wrap; }
             <minInt>-1024</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>1</stepInt>
-            <valInt>100</valInt>
+            <valInt>0</valInt>
             <suffix>LSB</suffix>
             <vTx>4</vTx>
         </shuntLCOffset>
@@ -442,7 +442,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>-1</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>0.05</stepDouble>
-            <valDouble>0.05</valDouble>
+            <valDouble>0.001</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix></suffix>
             <vTx>9</vTx>
@@ -463,7 +463,7 @@ p, li { white-space: pre-wrap; }
             <minInt>-1024</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>1</stepInt>
-            <valInt>100</valInt>
+            <valInt>-4</valInt>
             <suffix>LSB</suffix>
             <vTx>4</vTx>
         </shuntHCOffset>
@@ -1063,15 +1063,15 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If the absolute battery current is below the not used battery current threshold start keeping track of time and wait for the not used timeout to trigger (happens when the amount of time defined here is crossed). The not used timer will be reset if the absolute battery current passes the battery current threshold.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If the absolute battery current is below the not used battery current threshold start keeping track of time and wait for the not used timeout to trigger (happens when the amount of time defined here is crossed). The not used timer will be reset if the absolute battery current is higher than the &amp;quot;Not used current threshold&amp;quot;. To disable the not used powerdown system this value can be set to 0ms, else if used, it should be a minimal of 5000ms.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>NOT_USED_TIMEOUT</cDefine>
             <editorScale>1</editorScale>
             <editAsPercentage>0</editAsPercentage>
             <maxInt>86400000</maxInt>
-            <minInt>1000</minInt>
+            <minInt>0</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>1000</stepInt>
-            <valInt>3600000</valInt>
+            <valInt>1200000</valInt>
             <suffix>ms</suffix>
             <vTx>5</vTx>
         </notUsedTimeout>
@@ -1091,7 +1091,7 @@ p, li { white-space: pre-wrap; }
             <minInt>0</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>1000</stepInt>
-            <valInt>1000</valInt>
+            <valInt>3000</valInt>
             <suffix>ms</suffix>
             <vTx>5</vTx>
         </powerDownDelay>
@@ -1160,7 +1160,7 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The CAN ID style / ID byte order. This is configureable to stay compatible with the VESC style and the style used in an e-foil project.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>CAN_ID_STYLE</cDefine>
-            <valInt>1</valInt>
+            <valInt>0</valInt>
             <enumNames>VESCStyle</enumNames>
             <enumNames>EFoiler</enumNames>
         </CANIDStyle>
@@ -1189,7 +1189,7 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Send status information like current, voltage, temperatures and out/input enabled states over CAN. Not yet implemented.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>CAN_ID</cDefine>
-            <valInt>1</valInt>
+            <valInt>0</valInt>
         </emitStatusOverCAN>
         <waterSensorEnableMask>
             <longName>Water sensor enable mask</longName>
@@ -1243,7 +1243,7 @@ p, li { white-space: pre-wrap; }
             <minInt>0</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>1</stepInt>
-            <valInt>7176</valInt>
+            <valInt>4</valInt>
             <suffix></suffix>
             <vTx>5</vTx>
         </tempEnableMaskBMS>
@@ -1263,7 +1263,7 @@ p, li { white-space: pre-wrap; }
             <minInt>0</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>1</stepInt>
-            <valInt>7176</valInt>
+            <valInt>0</valInt>
             <suffix></suffix>
             <vTx>5</vTx>
         </tempEnableMaskBattery>
@@ -1353,9 +1353,9 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Defines whether or not the signal to control a DCDC converter should be inverted or not. Some DCDC converters have an inverted enable input.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Defines whether or not the signal to control a DCDC converter should be inverted or not. Some DCDC converters have an inverted enable input. This config only applies to BMS's that have an additional DCDC converter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>CHARGE_ENA_OP_STATE</cDefine>
-            <valInt>1</valInt>
+            <valInt>0</valInt>
         </DCDCEnableInverted>
         <pulseToggleButton>
             <longName>Pulse or toggle power button</longName>
@@ -1403,7 +1403,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The messages generated by an emergency button are received and used by the BMS to prefent unsafe power usage. Set to false to disable this feature.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>USE_CAN_SAFETY</cDefine>
-            <valInt>1</valInt>
+            <valInt>0</valInt>
         </useCANSafetyInput>
         <useCANDelayedPowerDown>
             <longName>Use delayed power down from CAN</longName>
@@ -1415,7 +1415,7 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This feature puts a CAN device in control of the power state of the BMS. A device can postpone the power down moment of the battery. This can be used to do a gracefull power down of a device. When not used set this value to false.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>USE_CAN_DELAYED_POWERDOWN</cDefine>
-            <valInt>1</valInt>
+            <valInt>0</valInt>
         </useCANDelayedPowerDown>
         <HCUseRelay>
             <longName>Use relay output</longName>
@@ -1427,7 +1427,7 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Use slave BMS relay output.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>HC_USE_RELAY</cDefine>
-            <valInt>1</valInt>
+            <valInt>0</valInt>
         </HCUseRelay>
         <HCUsePrecharge>
             <longName>Use relay precharge output</longName>
@@ -1513,7 +1513,7 @@ p, li { white-space: pre-wrap; }
             <minInt>0</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>100</stepInt>
-            <valInt>6000</valInt>
+            <valInt>300</valInt>
             <suffix>ms</suffix>
             <vTx>5</vTx>
         </timeoutHCPreCharge>
@@ -1673,7 +1673,7 @@ p, li { white-space: pre-wrap; }
             <minInt>1000</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>50</stepInt>
-            <valInt>4100</valInt>
+            <valInt>3590</valInt>
             <suffix>B</suffix>
             <vTx>3</vTx>
         </NTCPCBBeta>
