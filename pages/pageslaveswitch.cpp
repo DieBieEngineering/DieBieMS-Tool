@@ -45,9 +45,9 @@ void PageSlaveSwitch::setDieBieMS(BMSInterface *dieBieMS) {
     if (mDieBieMS) {
         ui->switchTab->addRowSeparator(tr("Main output switch"));
         ui->switchTab->addParamRow(mDieBieMS->bmsConfig(), "HCUseRelay");
+        ui->switchTab->addParamRow(mDieBieMS->bmsConfig(), "togglePowerModeDirectHCDelay");
         ui->switchTab->addParamRow(mDieBieMS->bmsConfig(), "HCUsePrecharge");
         ui->switchTab->addParamRow(mDieBieMS->bmsConfig(), "HCUseLoadDetect");
-        ui->switchTab->addParamRow(mDieBieMS->bmsConfig(), "togglePowerModeDirectHCDelay");
         ui->switchTab->addParamRow(mDieBieMS->bmsConfig(), "HCLoadDetectThreshold");
         ui->switchTab->addParamRow(mDieBieMS->bmsConfig(), "timeoutHCPreCharge");
         ui->switchTab->addParamRow(mDieBieMS->bmsConfig(), "timeoutHCPreChargeRetryInterval");
