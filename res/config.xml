@@ -198,7 +198,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>0</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>0.05</stepDouble>
-            <valDouble>3.25</valDouble>
+            <valDouble>3</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix>V</suffix>
             <vTx>9</vTx>
@@ -360,11 +360,28 @@ p, li { white-space: pre-wrap; }
             <minDouble>0</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>0.05</stepDouble>
-            <valDouble>0.5</valDouble>
+            <valDouble>0.2</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix>V</suffix>
             <vTx>9</vTx>
         </cellThrottleLowerMargin>
+        <packVoltageDataSource>
+            <longName>Pack voltage data source</longName>
+            <type>4</type>
+            <transmittable>1</transmittable>
+            <description>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The pack voltage data source can be selected here. For ADC's the callibration values will be taken into account, for CAN based sensors the measured voltage will be used directly.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
+            <cDefine>CELL_MONITOR_IC_TYPE</cDefine>
+            <valInt>1</valInt>
+            <enumNames>NoSource</enumNames>
+            <enumNames>ISL28022</enumNames>
+            <enumNames>SumOfIndividualCellVoltages</enumNames>
+            <enumNames>CAN-&gt;DieBieShunt</enumNames>
+            <enumNames>CAN-&gt;Isabellenhutte</enumNames>
+        </packVoltageDataSource>
         <packCurrentDataSource>
             <longName>Pack current data source</longName>
             <type>4</type>
@@ -373,7 +390,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Cell&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;monitor&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;IC&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;type.&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;Set&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;to&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;LTC6803&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;for&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;DieBieMS,&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;set&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;to&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;LTC6803&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;for&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;EFoilBMSV1,&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;set&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;to&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;LTC6804&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;for&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;EFoilBMSV2&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;and&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;set&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;to&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;LTC6804&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;for&lt;span style=&quot; color:#c0c0c0;&quot;&gt; &lt;/span&gt;DieBieMSHV.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The pack current data source can be selected here. For ADC's the callibration values will be taken into account, for CAN based sensors the measured current will be used directly.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>CELL_MONITOR_IC_TYPE</cDefine>
             <valInt>2</valInt>
             <enumNames>NoSource</enumNames>
@@ -393,7 +410,7 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Select the desired signal source / reason for the buzzer to start buzzing.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>BUZZER_SIGNAL_SOURCE</cDefine>
-            <valInt>0</valInt>
+            <valInt>3</valInt>
             <enumNames>Always off</enumNames>
             <enumNames>Always on</enumNames>
             <enumNames>All sources below</enumNames>
@@ -412,7 +429,7 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Select the desired signal source type.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>BUZZER_SIGNAL_TYPE</cDefine>
-            <valInt>1</valInt>
+            <valInt>7</valInt>
             <enumNames>Off</enumNames>
             <enumNames>On</enumNames>
             <enumNames>Toggle</enumNames>
@@ -451,7 +468,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>-1</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>0.05</stepDouble>
-            <valDouble>-0.004494</valDouble>
+            <valDouble>-0.0052</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix></suffix>
             <vTx>9</vTx>
@@ -535,7 +552,7 @@ p, li { white-space: pre-wrap; }
             <showDisplay>0</showDisplay>
             <stepInt>1</stepInt>
             <valInt>1</valInt>
-            <suffix>% / 100ms</suffix>
+            <suffix>% / 1000ms</suffix>
             <vTx>1</vTx>
         </throttleChargeIncreaseRate>
         <throttleDisChargeIncreaseRate>
@@ -554,8 +571,8 @@ p, li { white-space: pre-wrap; }
             <minInt>0</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>1</stepInt>
-            <valInt>2</valInt>
-            <suffix>% / 100ms</suffix>
+            <valInt>10</valInt>
+            <suffix>% / 1000ms</suffix>
             <vTx>1</vTx>
         </throttleDisChargeIncreaseRate>
         <cellBalanceUpdateInterval>
@@ -1478,7 +1495,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The messages generated by an emergency button are received and used by the BMS to prefent unsafe power usage. Set to false to disable this feature.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>USE_CAN_SAFETY</cDefine>
-            <valInt>0</valInt>
+            <valInt>1</valInt>
         </useCANSafetyInput>
         <useCANDelayedPowerDown>
             <longName>Use delayed power down from CAN</longName>
@@ -1490,7 +1507,7 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This feature puts a CAN device in control of the power state of the BMS. A device can postpone the power down moment of the battery. This can be used to do a gracefull power down of a device. When not used set this value to false.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>USE_CAN_DELAYED_POWERDOWN</cDefine>
-            <valInt>0</valInt>
+            <valInt>1</valInt>
         </useCANDelayedPowerDown>
         <HCUseRelay>
             <longName>Use relay output</longName>
@@ -1544,7 +1561,7 @@ p, li { white-space: pre-wrap; }
             <minInt>200</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>1</stepInt>
-            <valInt>500</valInt>
+            <valInt>300</valInt>
             <suffix>ms</suffix>
             <vTx>5</vTx>
         </HCLoadDetectThreshold>
@@ -1564,7 +1581,7 @@ p, li { white-space: pre-wrap; }
             <minInt>0</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>100</stepInt>
-            <valInt>6000</valInt>
+            <valInt>1500</valInt>
             <suffix>ms</suffix>
             <vTx>5</vTx>
         </timeoutHCPreCharge>
@@ -1921,8 +1938,13 @@ p, li { white-space: pre-wrap; }
             <valInt>0</valInt>
             <enumNames>Off</enumNames>
             <enumNames>On</enumNames>
+            <enumNames>WaterDetect</enumNames>
             <enumNames>ChargeAllowed</enumNames>
-            <enumNames>DisChargeAllowed</enumNames>
+            <enumNames>HCPreChargeEnabled</enumNames>
+            <enumNames>HCDisChargeAllowed</enumNames>
+            <enumNames>HCDischargeEnabled</enumNames>
+            <enumNames>LCDisChargeAllowed</enumNames>
+            <enumNames>LCDischargeEnabled</enumNames>
             <enumNames>Signal01</enumNames>
             <enumNames>Signal02</enumNames>
             <enumNames>Signal03</enumNames>
@@ -1985,8 +2007,13 @@ p, li { white-space: pre-wrap; }
             <valInt>0</valInt>
             <enumNames>Off</enumNames>
             <enumNames>On</enumNames>
+            <enumNames>WaterDetect</enumNames>
             <enumNames>ChargeAllowed</enumNames>
-            <enumNames>DisChargeAllowed</enumNames>
+            <enumNames>HCPreChargeEnabled</enumNames>
+            <enumNames>HCDisChargeAllowed</enumNames>
+            <enumNames>HCDischargeEnabled</enumNames>
+            <enumNames>LCDisChargeAllowed</enumNames>
+            <enumNames>LCDischargeEnabled</enumNames>
             <enumNames>Signal01</enumNames>
             <enumNames>Signal02</enumNames>
             <enumNames>Signal03</enumNames>

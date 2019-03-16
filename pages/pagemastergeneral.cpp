@@ -79,7 +79,7 @@ void PageMasterGeneral::setDieBieMS(BMSInterface *dieBieMS)
         ui->masterSensorsTab->addRowSeparator(tr("Celvoltage monitor"));
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "cellMonitorICType");
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "cellMonitorICCount");
-        ui->masterSensorsTab->addRowSeparator(tr("Shunt"));
+        ui->masterSensorsTab->addRowSeparator(tr("Shunt (LC)"));
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntLCFactor");
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntLCOffset");
         ui->masterSensorsTab->addRowSeparator(tr("NTC specifications"));
