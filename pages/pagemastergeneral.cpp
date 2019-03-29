@@ -54,8 +54,6 @@ void PageMasterGeneral::setDieBieMS(BMSInterface *dieBieMS)
         ui->powerStateTab->addRowSeparator(tr("Jump to"));
         ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "extEnableState");
         ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "chargeEnableState");
-        ui->powerStateTab->addRowSeparator(tr("DCDC Converter"));
-        ui->powerStateTab->addParamRow(mDieBieMS->bmsConfig(), "DCDCEnableInverted");
 
         ui->masterLimitsTab->addRowSeparator(tr("Current"));
         ui->masterLimitsTab->addParamRow(mDieBieMS->bmsConfig(), "maxAllowedCurrent");
