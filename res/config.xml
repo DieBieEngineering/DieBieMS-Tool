@@ -11,11 +11,11 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Number of cell(groups) in series in the batterypack. &lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The BMS needs a minimum of 3 cell(groups) in series to operate, this is a minimal voltage requirement by the LTC and power supply.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The BMS needs a minimum of 4 cell(groups) in series to operate, this is a minimal voltage requirement by the LTC and power supply.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>NO_OF_CELLS_SERIES</cDefine>
             <editorScale>1</editorScale>
             <editAsPercentage>0</editAsPercentage>
-            <maxInt>36</maxInt>
+            <maxInt>90</maxInt>
             <minInt>3</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>1</stepInt>
@@ -66,7 +66,7 @@ p, li { white-space: pre-wrap; }
             <vTx>9</vTx>
         </batteryCapacity>
         <cellMonitorICType>
-            <longName>Cell monitor IC type</longName>
+            <longName>IC type</longName>
             <type>4</type>
             <transmittable>1</transmittable>
             <description>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -81,7 +81,7 @@ p, li { white-space: pre-wrap; }
             <enumNames>LTC6804-1</enumNames>
         </cellMonitorICType>
         <cellMonitorICCount>
-            <longName>Cell monitor IC count</longName>
+            <longName>IC count</longName>
             <type>2</type>
             <transmittable>1</transmittable>
             <description>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -154,7 +154,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>0</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>0.05</stepDouble>
-            <valDouble>4.25</valDouble>
+            <valDouble>4.2</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix>V</suffix>
             <vTx>9</vTx>
@@ -366,42 +366,46 @@ p, li { white-space: pre-wrap; }
             <vTx>9</vTx>
         </cellThrottleLowerMargin>
         <packVoltageDataSource>
-            <longName>Pack voltage data source</longName>
+            <longName>Voltage data source</longName>
             <type>4</type>
             <transmittable>1</transmittable>
             <description>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The pack voltage data source can be selected here. For ADC's the callibration values will be taken into account, for CAN based sensors the measured voltage will be used directly.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
-            <cDefine>CELL_MONITOR_IC_TYPE</cDefine>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The pack voltage data source can be selected here. For ADC's the callibration/scaling/offset values will be taken into account, for CAN based sensors the measured voltage will be used directly from the CAN sensor.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
+            <cDefine>PACK_VOLTAGE_DATA_SOURCE</cDefine>
             <valInt>1</valInt>
             <enumNames>NoSource</enumNames>
-            <enumNames>ISL28022</enumNames>
+            <enumNames>ISL28022 (I2C2 - 0x40) LV BatteryInput</enumNames>
+            <enumNames>ISL28022 (I2C1 - 0x44) LV LoadOutput</enumNames>
+            <enumNames>ISL28022 (I2C1 - 0x45) DCDC</enumNames>
+            <enumNames>ADS1015 (AN01) HV BatteryInput</enumNames>
+            <enumNames>ADS1015 (AN23) HV LoadOutput</enumNames>
             <enumNames>SumOfIndividualCellVoltages</enumNames>
             <enumNames>CAN-&gt;DieBieShunt</enumNames>
             <enumNames>CAN-&gt;Isabellenhutte</enumNames>
         </packVoltageDataSource>
         <packCurrentDataSource>
-            <longName>Pack current data source</longName>
+            <longName>Current data source</longName>
             <type>4</type>
             <transmittable>1</transmittable>
             <description>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The pack current data source can be selected here. For ADC's the callibration values will be taken into account, for CAN based sensors the measured current will be used directly.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The pack current data source can be selected here. For ADC's the callibration/scaling/offset values will be taken into account, for CAN based sensors the measured voltage will be used directly from the CAN sensor.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>CELL_MONITOR_IC_TYPE</cDefine>
             <valInt>2</valInt>
             <enumNames>NoSource</enumNames>
-            <enumNames>Low current shunt</enumNames>
-            <enumNames>High current shunt</enumNames>
-            <enumNames>Low + high current shunt</enumNames>
+            <enumNames>Low current path current</enumNames>
+            <enumNames>High current path current</enumNames>
+            <enumNames>Low + high path currents</enumNames>
             <enumNames>CAN-&gt;DieBieShunt</enumNames>
             <enumNames>CAN-&gt;Isabellenhutte</enumNames>
         </packCurrentDataSource>
         <buzzerSignalSource>
-            <longName>Buzzer signal source</longName>
+            <longName>Signal source</longName>
             <type>4</type>
             <transmittable>1</transmittable>
             <description>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -420,7 +424,7 @@ p, li { white-space: pre-wrap; }
             <enumNames>Safe operating area</enumNames>
         </buzzerSignalSource>
         <buzzerSignalType>
-            <longName>Buzzer signal type</longName>
+            <longName>Signal type</longName>
             <type>4</type>
             <transmittable>1</transmittable>
             <description>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -440,7 +444,7 @@ p, li { white-space: pre-wrap; }
             <enumNames>Pulse 1000 4</enumNames>
         </buzzerSignalType>
         <buzzerPersistent>
-            <longName>Buzzer persistent</longName>
+            <longName>Persistent</longName>
             <type>5</type>
             <transmittable>1</transmittable>
             <description>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -452,14 +456,14 @@ p, li { white-space: pre-wrap; }
             <valInt>1</valInt>
         </buzzerPersistent>
         <shuntLCFactor>
-            <longName>Shunt LC factor</longName>
+            <longName>Shunt factor</longName>
             <type>1</type>
             <transmittable>1</transmittable>
             <description>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;TODO&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Scaling factor for ISL based shut measurements. Only applies to ISL based current sensor source.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>SHUNT_LC_FACTOR</cDefine>
             <editorDecimalsDouble>6</editorDecimalsDouble>
             <editorScale>1</editorScale>
@@ -474,14 +478,14 @@ p, li { white-space: pre-wrap; }
             <vTx>9</vTx>
         </shuntLCFactor>
         <shuntLCOffset>
-            <longName>Shunt LC Offset</longName>
+            <longName>Shunt Offset</longName>
             <type>2</type>
             <transmittable>1</transmittable>
             <description>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;TODO&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Offset for ISL based shut measurements. Only applies to ISL based current sensor source.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>SHUNT_LC_OFFSET</cDefine>
             <editorScale>1</editorScale>
             <editAsPercentage>0</editAsPercentage>
@@ -494,14 +498,14 @@ p, li { white-space: pre-wrap; }
             <vTx>4</vTx>
         </shuntLCOffset>
         <shuntHCFactor>
-            <longName>Shunt HC factor</longName>
+            <longName>Shunt factor</longName>
             <type>1</type>
             <transmittable>1</transmittable>
             <description>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;TODO&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Scaling factor for ISL based shut measurements. Only applies to ISL based current sensor source.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>SHUNT_HC_FACTOR</cDefine>
             <editorDecimalsDouble>6</editorDecimalsDouble>
             <editorScale>1</editorScale>
@@ -510,20 +514,20 @@ p, li { white-space: pre-wrap; }
             <minDouble>-1</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>0.05</stepDouble>
-            <valDouble>-0.025</valDouble>
+            <valDouble>-0.0269</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix></suffix>
             <vTx>9</vTx>
         </shuntHCFactor>
         <shuntHCOffset>
-            <longName>Shunt HC Offset</longName>
+            <longName>Shunt Offset</longName>
             <type>2</type>
             <transmittable>1</transmittable>
             <description>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;TODO&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Offset for ISL based shut measurements. Only applies to ISL based current sensor source.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>SHUNT_HC_OFFSET</cDefine>
             <editorScale>1</editorScale>
             <editAsPercentage>0</editAsPercentage>
@@ -551,7 +555,7 @@ p, li { white-space: pre-wrap; }
             <minInt>0</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>1</stepInt>
-            <valInt>1</valInt>
+            <valInt>2</valInt>
             <suffix>% / 1000ms</suffix>
             <vTx>1</vTx>
         </throttleChargeIncreaseRate>
@@ -908,7 +912,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>-20</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>5</stepDouble>
-            <valDouble>-20</valDouble>
+            <valDouble>-10</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix> °C</suffix>
             <vTx>9</vTx>
@@ -930,7 +934,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>-20</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>5</stepDouble>
-            <valDouble>50</valDouble>
+            <valDouble>55</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix> °C</suffix>
             <vTx>9</vTx>
@@ -974,7 +978,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>-20</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>5</stepDouble>
-            <valDouble>80</valDouble>
+            <valDouble>90</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix> °C</suffix>
             <vTx>9</vTx>
@@ -1118,7 +1122,7 @@ p, li { white-space: pre-wrap; }
             <minDouble>1</minDouble>
             <showDisplay>0</showDisplay>
             <stepDouble>0.1</stepDouble>
-            <valDouble>1</valDouble>
+            <valDouble>0.5</valDouble>
             <vTxDoubleScale>100000</vTxDoubleScale>
             <suffix>A</suffix>
             <vTx>9</vTx>
@@ -1229,7 +1233,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The CAN ID style / ID byte order. This is configureable to stay compatible with the VESC style and the style used in an e-foil project.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>CAN_ID_STYLE</cDefine>
             <valInt>1</valInt>
-            <enumNames>VESCStyle</enumNames>
+            <enumNames>DieBie / VESC</enumNames>
             <enumNames>EFoiler</enumNames>
         </CANIDStyle>
         <CANBaudRate>
@@ -1242,7 +1246,7 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;CAN bus communication speed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>CAN_SPEED</cDefine>
-            <valInt>2</valInt>
+            <valInt>0</valInt>
             <enumNames>125kbit/s</enumNames>
             <enumNames>250kbit/s</enumNames>
             <enumNames>500kbit/s</enumNames>
@@ -1256,9 +1260,24 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Send status information like current, voltage, temperatures and out/input enabled states over CAN. Not yet implemented.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
-            <cDefine>CAN_ID</cDefine>
+            <cDefine>CAN_STATUS_EMIT_ENABLE</cDefine>
             <valInt>1</valInt>
         </emitStatusOverCAN>
+        <emitStatusProtocolType>
+            <longName>Emit status protocol</longName>
+            <type>4</type>
+            <transmittable>1</transmittable>
+            <description>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Send status protocol/format; how the status information is packaged in can messages.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
+            <cDefine>CAN_STATUS_PROTOCOL</cDefine>
+            <valInt>2</valInt>
+            <enumNames>None</enumNames>
+            <enumNames>DieBie engineering</enumNames>
+            <enumNames>MG Electronics</enumNames>
+        </emitStatusProtocolType>
         <waterSensorEnableMask>
             <longName>Water sensor enable mask</longName>
             <type>2</type>
@@ -1275,7 +1294,7 @@ p, li { white-space: pre-wrap; }
             <minInt>0</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>1</stepInt>
-            <valInt>1008</valInt>
+            <valInt>240</valInt>
             <suffix></suffix>
             <vTx>4</vTx>
         </waterSensorEnableMask>
@@ -1353,7 +1372,7 @@ p, li { white-space: pre-wrap; }
             <minInt>0</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>1</stepInt>
-            <valInt>7176</valInt>
+            <valInt>1</valInt>
             <suffix></suffix>
             <vTx>5</vTx>
         </tempEnableMaskBattery>
@@ -1456,8 +1475,8 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The BMS will check whether the DCDC output voltage is within 10% of the voltage specified here, if it is OK it will start controlling the loads on the output of it, like the Relay and FANs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
-            <cDefine>CHARGE_ENA_OP_STATE</cDefine>
-            <editorDecimalsDouble>0</editorDecimalsDouble>
+            <cDefine>DCDC_TARGET_VOLTAGE</cDefine>
+            <editorDecimalsDouble>1</editorDecimalsDouble>
             <editorScale>1</editorScale>
             <editAsPercentage>0</editAsPercentage>
             <maxDouble>100</maxDouble>
@@ -1482,8 +1501,8 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;When using a toggle switch the BMS is turned on when the switch closes and turnes off when the switch is opened up. Please be aware the the BMS also turnes of when it is not used. When it turned off by itself the BMS needs at least 10 seconds of the switch to be opened before it can be enabled again.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>BUTTON_PULSE_TOGGLE</cDefine>
             <valInt>1</valInt>
-            <enumNames>Toggle</enumNames>
-            <enumNames>Pulse</enumNames>
+            <enumNames>Latching / Toggle</enumNames>
+            <enumNames>Momentary / Pulse</enumNames>
         </pulseToggleButton>
         <togglePowerModeDirectHCDelay>
             <longName>Direct or high current output control</longName>
@@ -1517,7 +1536,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The messages generated by an emergency button are received and used by the BMS to prefent unsafe power usage. Set to false to disable this feature.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>USE_CAN_SAFETY</cDefine>
-            <valInt>1</valInt>
+            <valInt>0</valInt>
         </useCANSafetyInput>
         <useCANDelayedPowerDown>
             <longName>Use delayed power down from CAN</longName>
@@ -1529,7 +1548,7 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This feature puts a CAN device in control of the power state of the BMS. A device can postpone the power down moment of the battery. This can be used to do a gracefull power down of a device. When not used set this value to false.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>USE_CAN_DELAYED_POWERDOWN</cDefine>
-            <valInt>1</valInt>
+            <valInt>0</valInt>
         </useCANDelayedPowerDown>
         <HCUseRelay>
             <longName>Use relay output</longName>
@@ -1565,7 +1584,7 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Use the voltage drop acros the HC load output precharge resistor to detect a minimal load before enabling the path completely.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
             <cDefine>HC_USE_LOAD_DETECT</cDefine>
-            <valInt>1</valInt>
+            <valInt>0</valInt>
         </HCUseLoadDetect>
         <HCLoadDetectThreshold>
             <longName>Load detect threshold</longName>
@@ -1587,6 +1606,45 @@ p, li { white-space: pre-wrap; }
             <suffix>ms</suffix>
             <vTx>5</vTx>
         </HCLoadDetectThreshold>
+        <HCLoadVoltageDataSource>
+            <longName>Voltage data source</longName>
+            <type>4</type>
+            <transmittable>1</transmittable>
+            <description>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The HC load voltage data source can be selected here. For ADC's the callibration/scaling/offset values will be taken into account, for CAN based sensors the measured voltage will be used directly from the CAN sensor.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
+            <cDefine>HC_LOAD_VOLTAGE_DATA_SOURCE</cDefine>
+            <valInt>2</valInt>
+            <enumNames>NoSource</enumNames>
+            <enumNames>ISL28022 (I2C2 - 0x40) LV BatteryInput</enumNames>
+            <enumNames>ISL28022 (I2C1 - 0x44) LV LoadOutput</enumNames>
+            <enumNames>ISL28022 (I2C1 - 0x45) DCDC</enumNames>
+            <enumNames>ADS1015 (AN01) HV BatteryInput</enumNames>
+            <enumNames>ADS1015 (AN23) HV LoadOutput</enumNames>
+            <enumNames>SumOfIndividualCellVoltages</enumNames>
+            <enumNames>CAN-&gt;DieBieShunt</enumNames>
+            <enumNames>CAN-&gt;Isabellenhutte</enumNames>
+        </HCLoadVoltageDataSource>
+        <HCLoadCurrentDataSource>
+            <longName>Current data source</longName>
+            <type>4</type>
+            <transmittable>1</transmittable>
+            <description>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; ; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The HC load voltage data source can be selected here. For ADC's the callibration/scaling/offset values will be taken into account, for CAN based sensors the measured voltage will be used directly from the CAN sensor.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</description>
+            <cDefine>HC_LOAD_VOLTAGE_DATA_SOURCE</cDefine>
+            <valInt>2</valInt>
+            <enumNames>NoSource</enumNames>
+            <enumNames>ISL28022 (I2C2 - 0x40) LV LC shunt</enumNames>
+            <enumNames>ISL28022 (I2C1 - 0x44) LV HC shunt</enumNames>
+            <enumNames>ISL28022 (I2C1 - 0x45) DCDC shunt</enumNames>
+            <enumNames>CAN-&gt;DieBieShunt</enumNames>
+            <enumNames>CAN-&gt;Isabellenhutte</enumNames>
+        </HCLoadCurrentDataSource>
         <timeoutHCPreCharge>
             <longName>Timeout precharge</longName>
             <type>2</type>
@@ -1703,7 +1761,7 @@ p, li { white-space: pre-wrap; }
             <minInt>1000</minInt>
             <showDisplay>0</showDisplay>
             <stepInt>50</stepInt>
-            <valInt>4390</valInt>
+            <valInt>4100</valInt>
             <suffix>B</suffix>
             <vTx>3</vTx>
         </NTCLTCBeta>
@@ -2101,6 +2159,7 @@ p, li { white-space: pre-wrap; }
         <ser>cellThrottleLowerStart</ser>
         <ser>cellThrottleUpperMargin</ser>
         <ser>cellThrottleLowerMargin</ser>
+        <ser>packVoltageDataSource</ser>
         <ser>packCurrentDataSource</ser>
         <ser>buzzerSignalSource</ser>
         <ser>buzzerSignalType</ser>
@@ -2144,6 +2203,7 @@ p, li { white-space: pre-wrap; }
         <ser>CANIDStyle</ser>
         <ser>CANBaudRate</ser>
         <ser>emitStatusOverCAN</ser>
+        <ser>emitStatusProtocolType</ser>
         <ser>waterSensorEnableMask</ser>
         <ser>waterSensorThreshold</ser>
         <ser>tempEnableMaskBMS</ser>
@@ -2160,6 +2220,8 @@ p, li { white-space: pre-wrap; }
         <ser>HCUsePrecharge</ser>
         <ser>HCUseLoadDetect</ser>
         <ser>HCLoadDetectThreshold</ser>
+        <ser>HCLoadVoltageDataSource</ser>
+        <ser>HCLoadCurrentDataSource</ser>
         <ser>timeoutHCPreCharge</ser>
         <ser>timeoutHCPreChargeRetryInterval</ser>
         <ser>timeoutHCRelayOverlap</ser>
@@ -2183,6 +2245,7 @@ p, li { white-space: pre-wrap; }
         <ser>extEnableState</ser>
         <ser>chargeEnableState</ser>
         <ser>DCDCEnableInverted</ser>
+        <ser>DCDCTargetVoltage</ser>
         <ser>powerDownDelay</ser>
     </SerOrder>
 </ConfigParams>

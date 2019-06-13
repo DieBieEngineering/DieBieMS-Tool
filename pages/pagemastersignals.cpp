@@ -45,6 +45,17 @@ void PageMasterSignals::setDieBieMS(BMSInterface *dieBieMS)
     mDieBieMS = dieBieMS;
 
     if (mDieBieMS) {
+        ui->signalsTab->addRowSeparator(tr("Celvoltage monitor"));
+        ui->signalsTab->addParamRow(mDieBieMS->bmsConfig(), "cellMonitorICType");
+        ui->signalsTab->addParamRow(mDieBieMS->bmsConfig(), "cellMonitorICCount");
+        ui->signalsTab->addRowSeparator(tr("Low current path"));
+        ui->signalsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntLCFactor");
+        ui->signalsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntLCOffset");
+        ui->signalsTab->addRowSeparator(tr("High current path"));
+        ui->signalsTab->addParamRow(mDieBieMS->bmsConfig(), "HCLoadVoltageDataSource");
+        ui->signalsTab->addParamRow(mDieBieMS->bmsConfig(), "HCLoadCurrentDataSource");
+        ui->signalsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntHCFactor");
+        ui->signalsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntHCOffset");
         ui->signalsTab->addRowSeparator(tr("Pack general sensing"));
         ui->signalsTab->addParamRow(mDieBieMS->bmsConfig(), "packVoltageDataSource");
         ui->signalsTab->addParamRow(mDieBieMS->bmsConfig(), "packCurrentDataSource");

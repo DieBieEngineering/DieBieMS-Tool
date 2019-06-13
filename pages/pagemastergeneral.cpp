@@ -67,19 +67,14 @@ void PageMasterGeneral::setDieBieMS(BMSInterface *dieBieMS)
 
         ui->canTab->addRowSeparator(tr("CAN Configuration"));
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "CANID");
-        ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "CANBaudRate");
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "CANIDStyle");
+        ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "CANBaudRate");
         ui->canTab->addRowSeparator(tr("CAN Messaging"));
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "emitStatusOverCAN");
+        ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "emitStatusProtocolType");
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "useCANSafetyInput");
         ui->canTab->addParamRow(mDieBieMS->bmsConfig(), "useCANDelayedPowerDown");
 
-        ui->masterSensorsTab->addRowSeparator(tr("Celvoltage monitor"));
-        ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "cellMonitorICType");
-        ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "cellMonitorICCount");
-        ui->masterSensorsTab->addRowSeparator(tr("Shunt (LC)"));
-        ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntLCFactor");
-        ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntLCOffset");
         ui->masterSensorsTab->addRowSeparator(tr("NTC specifications"));
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCPCBTopResistor");
         ui->masterSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCPCB25Deg");

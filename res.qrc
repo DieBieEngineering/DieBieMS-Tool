@@ -129,5 +129,6 @@
         <file>res/bootloaders/EFoilBMSHW1.bin</file>
         <file>res/firmwares/EFoilBMSHW1/DieBieMS_default.bin</file>
         <file>res/firmwares/EFoilBMSHW2/DieBieMS_default.bin</file>
+        <file>res/bootloaders/DSBTSolarHW1.bin</file>
     </qresource>
 </RCC>

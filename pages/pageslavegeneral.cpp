@@ -43,9 +43,6 @@ void PageSlaveGeneral::setDieBieMS(BMSInterface *dieBieMS) {
     mDieBieMS = dieBieMS;
 
     if (mDieBieMS) {
-        ui->slaveSensorsTab->addRowSeparator(tr("Shunt (HC)"));
-        ui->slaveSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntHCFactor");
-        ui->slaveSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "shuntHCOffset");
         ui->slaveSensorsTab->addRowSeparator(tr("NTC's local"));
         ui->slaveSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCHiAmpPCBTopResistor");
         ui->slaveSensorsTab->addParamRow(mDieBieMS->bmsConfig(), "NTCHiAmpPCB25Deg");
